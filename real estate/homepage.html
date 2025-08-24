@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://kit.fontawesome.com/91537ba238.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://fonts.googleapis.com/css2?family=MuseoModerno&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="./style/homepage.css" />
+    <link rel="website icon" type="png" href="image/logotitle.png">
+    <title>Home Page</title>
+  </head>
+  <body>
+    <!-- navbar start -->
+    <div class="navbar flex md:justify-around h-20 bg-[#DBEED6] items-center sticky top-0 z-50">
+      <p class="logo -ml-50 text-2xl font-bold text-[#095B15] flex items-center"><img class="h-7 -mt-2" src="image/logotitle.png" alt=""><span>ESTIFY</span></p>
+      <div class="text-xl space-x-6 bg-[#8BD78BC9] p-1 w-90 h-10 text-center rounded-full ">
+        <a class="underline" href="homepage.html">Home</a>
+        <a class="hover:underline" href="aboutus.html">About Us</a>
+        <a class="hover:underline" href="buy.html">Buy</a>
+        <a class="hover:underline" href="sell.html">Sell</a>
+      </div>
+      <div class="-mr-50 text-2xl space-x-4">
+
+        <span class="relative flex size-3 ml-5 top-2">
+        <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75"></span>
+        <span class="relative inline-flex size-3 rounded-full bg-red-500"></span>
+        </span>
+        
+        <a href="chat.html"><i class="fa-regular fa-comments"></i></a>
+        <a href="wishlist.html"><i class="fa-regular fa-heart"></i></a>
+        <a href="profile.html"><i class="fa-solid fa-user"></i></a>
+      </div>
+    </div>
+    <!-- navbar end -->
+
+    <!-- header  -->
+    <div class="bg-gradient-to-t from-[#8ED87B] to-[#DBEED6] h-[400px] p-5 relative">
+      <div class="p-5 md:ml-50">
+        <span class="md:text-7xl text-2xl">Gateway to</span><br>
+      <span class="md:text-8xl text-2xl font-bold">Dream Homes</span><br>
+      <span class="md:text-2xl">Want to find a home? We are ready to help you find <br class="max-md:hidden">one that suits your lifestyle and needs</span>
+      </div>
+      <img class="absolute right-0 md:-top-22 md:h-170 z-1 h-50 top-40" src="image/homebg3.png" alt="">
+
+      <div class="filter h-32 w-250 p-2 bg-[#FFFFFFA6] absolute top-85 left-90">
+        <span class="text-2xl font-bold">Search for available properties</span><br class="max-md:hidden"><br class="max-md:hidden">
+        <input type="text" placeholder="Location"><i class="fa-solid fa-location-dot -ml-5"></i>
+        <input type="text" placeholder="Property Type"><i class="fa-solid fa-house -ml-6"></i>
+        <input type="text" placeholder="Budget"><i class="fa-solid fa-indian-rupee-sign -ml-5"></i>
+        <button class="bg-[#435D35] h-[40px] w-35 text-xl text-white rounded-lg ml-8">Search Now</button>
+      </div>
+    </div>
+    <!-- header end  -->
+
+    <!-- property listing  -->
+     <div class="bg-black h-80 w-full relative mt-80 rounded-tl-4xl rounded-br-4xl max-md:hidden"></div>
+  <div class="h-120 md:mt-20 mt-60 text-center absolute right-0 left-0 top-130 z-1">
+      <span class="font-bold md:text-2xl text-xl">-----OUR POPULAR HOMES-----</span>
+     <div class="listing flex justify-center space-x-10">   
+
+      <a href="propertyview.html">
+        <div class="property hover:scale-105 transition-transform duration-300">
+        <img src="image/homepic1.jpeg" alt="">
+
+        <div class="mt-3 space-y-3 space-x-4">
+        <span class="font-bold text-xl p-2"><i class="fa-solid fa-location-dot"></i>&nbsp;Karyavattom , trivandrum</span>
+        <p>4 BHK&nbsp;|&nbsp;2 Floor&nbsp;|&nbsp;1250sqft</p>
+        <span class="bg-[#EBDC37] p-2 rounded-md font-bold">FEATURED</span>
+        <span class="font-bold text-xl">10,00,000/-</span>
+        </div>
+      </div></a>
+
+      <a href="propertyview.html">
+      <div class="property hover:scale-105 transition-transform duration-300">
+        <img src="image/homepic2.jpeg" alt="">
+
+        <div class="mt-3 space-y-3 space-x-4">
+        <span class="font-bold text-xl p-2"><i class="fa-solid fa-location-dot"></i>&nbsp;Karyavattom , trivandrum</span>
+        <p>4 BHK&nbsp;|&nbsp;2 Floor&nbsp;|&nbsp;1250sqft</p>
+        <span class="bg-[#EBDC37] p-2 rounded-md font-bold">FEATURED</span>
+        <span class="font-bold text-xl">10,00,000/-</span>
+        </div>
+      </div></a>
+
+      <a href="propertyview.html">
+      <div class="property hover:scale-105 transition-transform duration-300">
+        <img src="image/homepic-3.jpeg" alt="">
+
+        <div class="mt-3 space-y-3 space-x-4">
+        <span class="font-bold text-xl p-2"><i class="fa-solid fa-location-dot"></i>&nbsp;Karyavattom , trivandrum</span>
+        <p>4 BHK&nbsp;|&nbsp;2 Floor&nbsp;|&nbsp;1250sqft</p>
+        <span class="bg-[#EBDC37] p-2 rounded-md font-bold">FEATURED</span>
+        <span class="font-bold text-xl">10,00,000/-</span>
+        </div>
+      </div>
+      </a>
+
+      <a href="propertyview.html">
+      <div class="property hover:scale-105 transition-transform duration-300">
+        <img src="image/homepic4.jpeg" alt="">
+
+        <div class="mt-3 space-y-3 space-x-4">
+        <span class="font-bold text-xl p-2"><i class="fa-solid fa-location-dot"></i>&nbsp;Karyavattom , trivandrum</span>
+        <p>4 BHK&nbsp;|&nbsp;2 Floor&nbsp;|&nbsp;1250sqft</p>
+        <span class="bg-[#EBDC37] p-2 rounded-md font-bold">FEATURED</span>
+        <span class="font-bold text-xl">10,00,000/-</span>
+        </div>
+
+      </div>
+      </a>
+    </div>
+  </div>
+  <!-- property listing end -->
+
+  <!-- why choose us  -->
+
+  <div class="whychooseus0 text-center md:mt-10 mt-500 h-90">
+    <span class="text-[#095B15] font-bold md:text-4xl text-xl">WHY CHOOSE US</span>
+    <div class="whychooseus md:flex justify-around md:mt-20 mt-10 grid">
+    <div class="w-70 flex flex-col items-center">
+      <img src="image/verified.png" alt="">
+      <p>Verified Listing</p>
+    </div>
+    <div class="w-70 flex flex-col items-center">
+      <img src="image/easy-access.png" alt="">
+      <p>Easy Access</p>
+    </div>
+    <div class="w-70 flex flex-col items-center">
+      <img src="image/software.png" alt="">
+      <p>Regular Updations</p>
+    </div>
+    <div class="w-70 flex flex-col items-center">
+      <img src="image/service.png" alt="">
+      <p>Quality Assurance</p>
+    </div>
+    </div>
+  </div>
+   <!-- why choose us end -->
+  <div class="addproperty md:relative">
+    <img class="w-full h-60 opacity-30" src="image/banner.png" alt="">
+    <div class="addproperty1 md:absolute top-15 left-140 text-center space-y-8">
+      <p class="md:text-4xl font-bold">LOOKING TO SELL YOUR PROPERTIES ?</p>
+      <a class="bg-[#468650]/90 p-3 md:text-2xl text-white rounded-lg" href="sell.html">List Your Property</a>
+    </div>
+  </div>
+
+  <!-- about us  -->
+
+  <div class="aboutus text-center mt-10 h-70">
+    <p class="font-bold md:text-4xl text-xl text-[#095B15]">ABOUT US</p>
+    <p class="md:text-2xl mt-5">Nestify is your trusted partner in finding the perfect home. <br> With expert guidance, verified listings, and a deep understanding of local markets, we make buying,  selling, and renting simple and stress-free. <br>
+        👉 Real homes. Real people. Real trust.</p> <br>
+    <a class="underline text-xl " href="aboutus.html">View More </a>
+  </div>
+  <!-- about us  end-->
+
+  <footer class="relative max-md:hidden">
+      <img class="w-full h-70 opacity-40" src="image/banner.png" alt="">
+      <div class="flex justify-around absolute top-10 right-0 left-0">
+        <span class="logo text-4xl font-bold text-[#095B15]">NESTIFY</span>
+        <div class="quicklink">
+          <span class="font-bold">Quick links</span>
+          <a href="homepage.html">Home</a>
+          <a href="buy.html">Properties</a>
+          <a href="aboutus.html">About Us</a>
+          <a href="sell.html">Sell</a>
+        </div>
+         <div class="quicklink">
+          <span class="font-bold">Quick links</span>
+          <a href="homepage.html">Home</a>
+          <a href="buy.html">Properties</a>
+          <a href="aboutus.html">About Us</a>
+          <a href="sell.html">Sell</a>
+        </div>
+         <div class="quicklink">
+          <span class="font-bold">Quick links</span>
+          <a href="homepage.html">Home</a>
+          <a href="buy.html">Properties</a>
+          <a href="aboutus.html">About Us</a>
+          <a href="sell.html">Sell</a>
+        </div>
+      </div>
+  </footer>
+  </body>
+</html>

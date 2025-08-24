@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/91537ba238.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="style/style.css">
+    <title>Admin dashboard</title>
+</head>
+<body class="bg-[#F6F9FC]">
+    <!-- navbar -->
+     <div class="md:flex grid justify-between items-center pr-10 pl-10 bg-[#66D096] h-[7vh] text-2xl fixed right-0 left-0 z-999">
+        <div></div>
+        <div><span class="font-bold text-white">ADMIN DASHBOARD</span></div>
+        <a href="landing.html"><i class="fa-solid fa-right-from-bracket text-white"></i></a>
+     </div>
+     <!-- navbar end  -->
+      
+       <div class="flex">
+                <!-- sidebar -->
+            <div class="bg-[#66D096] h-[93vh] w-[8%] fixed top-17 flex flex-col text-xl text-white flex flex-col justify-center items-center space-y-6">
+                <a href="#home"><img class="h-[40px]" src="image/home.png" alt="">Home</a>
+                <a href="#users"> <img class="h-[40px]" src="image/profile-user.png" alt="">Users</a>
+                <a href="#request"><img class="h-[40px]" src="image/request.png" alt="">Request</a>
+                <a href="#property"> <img class="h-[40px]" src="image/property.png" alt="">property</a>
+                <a href="#feedback"><img class="h-[40px]" src="image/feedback (1).png" alt="">Feedback</a>
+            </div>
+            <!-- content  -->
+
+            <div id="home" class="absolute md:left-80 md:top-30 left-20 top-20 w-[70%]">
+                <div class="flex flex-col justify-center items-center rounded-2xl bg-white h-[140px] shadow-2xl space-y-3 text-2xl">
+                    <span class="text-2xl font-bold">dashboard Overview</span>
+                    <div class="w-[90%] flex space-x-5 h-[50px]">
+                    <button class="w-1/2 bg-[#ECF0F1] rounded-lg cursor-pointer"><i class="fa-solid fa-user fa-lg" style="color: #74C0FC;"></i> 56 Users</button>
+                    <button class="w-1/2 bg-[#ECF0F1] rounded-lg cursor-pointer"><i class="fa-solid fa-house fa-lg" style="color: #FFD43B;"></i> 150 Properties</button>
+                    </div>
+                </div>
+
+
+                <div id="users" class="flex flex-col justify-center items-center rounded-2xl bg-white shadow-2xl space-y-3 mt-20 text-lg text-center h-100 max-md:w-[100%]">
+                    <span class="text-2xl font-bold">Users</span>
+                    <table class="w-[90%] h-80 table-fixed">
+                        <tr class="border-b border-black/30 bg-[#ECF0F1] h-[50px]">
+                            <th>User ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Action</th>
+                        </tr>
+                        <tr class="border-b border-black/30">
+                            <td>1</td>
+                            <td>Aryan Nair</td>
+                            <td>aryan@example.com</td>
+                            <td><button class="border-2 border-green-500 w-[100px] text-green-500 hover:bg-green-100">View</button></td>
+                        </tr>
+                        <tr class="border-b border-black/30">
+                            <td>2</td>
+                            <td>Diya Menon</td>
+                            <td>diya@example.com</td>
+                            <td><button class="border-2 border-green-500 w-[100px] text-green-500 hover:bg-green-100">View</button></td>
+                        </tr>
+                        <tr class="border-b border-black/30">
+                            <td>3</td>
+                            <td>Rahul Varma</td>
+                            <td>rahul@example.com</td>
+                            <td><button class="border-2 border-green-500 w-[100px] text-green-500 hover:bg-green-100">View</button></td>
+                        </tr>
+                        <tr class="border-b border-black/30">
+                            <td>4</td>
+                            <td>Sneha Thomas</td>
+                            <td>sneha@example.com</td>
+                            <td><button class="border-2 border-green-500 w-[100px] text-green-500 hover:bg-green-100">View</button></td>
+                        </tr>
+                        <tr class="border-b border-black/30">
+                            <td>5</td>
+                            <td>Karthik Ramesh</td>
+                            <td>karthik@example.com</td>
+                            <td><button class="border-2 border-green-500 w-[100px] text-green-500 hover:bg-green-100">View</button></td>
+                        </tr>
+                        <tr class="border-b border-black/30">
+                            <td>6</td>
+                            <td>Neha Raj</td>
+                            <td>neha@example.com</td>
+                            <td><button class="border-2 border-green-500 w-[100px] text-green-500 hover:bg-green-100">View</button></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div id="request" class="flex flex-col justify-center items-center rounded-2xl bg-white shadow-2xl space-y-3 mt-20 text-lg text-center h-80">
+                    <span class="text-2xl font-bold">Request</span>
+                    <table class="w-[90%] h-60 text-center table-fixed">
+                    <tr class="border-b border-black/30 bg-[#ECF0F1] h-[50px]">
+                        <th>Property Title</th>
+                        <th>Owner Name</th>
+                        <th>Request Sent Date</th>
+                        <th>Action</th>
+                    </tr>
+
+                    <tr class="border-b border-black/30">
+                        <td>2BHK Apartment</td>
+                        <td>Aryan Nair</td>
+                        <td>2025-07-12</td>
+                        <td>
+                         <a href="approve.html"><button class="border-2 border-green-500 w-[100px] text-green-500 hover:bg-green-100">View</button></a>
+                        </td>
+                    </tr>
+
+                    <tr class="border-b border-black/30">
+                        <td>Luxury Villa</td>
+                        <td>Diya Menon</td>
+                        <td>2025-07-10</td>
+                        <td>
+                          <a href="approve.html"><button class="border-2 border-green-500 w-[100px] text-green-500 hover:bg-green-100">View</button></a>
+                        </td>
+                    </tr>
+
+                    <tr class="border-b border-black/30">
+                        <td>Studio Flat</td>
+                        <td>Rahul Varma</td>
+                        <td>2025-07-08</td>
+                        <td>
+                         <a href="approve.html"><button class="border-2 border-green-500 w-[100px] text-green-500 hover:bg-green-100">View</button></a>
+                        </td>
+                    </tr>
+
+                    <tr class="border-b border-black/30">
+                        <td>Commercial Space</td>
+                        <td>Sneha Thomas</td>
+                        <td>2025-07-05</td>
+                        <td>
+                            <a href="approve.html"><button class="border-2 border-green-500 w-[100px] text-green-500 hover:bg-green-100">View</button></a>
+                        </td>
+                    </tr>
+                </table>
+                </div>
+
+                <div id="property" class="flex flex-col justify-center items-center rounded-2xl bg-white shadow-2xl space-y-3 mt-20 text-lg text-center md:h-100">
+                    <span class="text-2xl font-bold">Properties</span>
+                    <table class="w-[90%] h-80 text-center table-fixed">
+                        
+                    <tr class="border-b border-black/30 bg-[#ECF0F1] h-[50px]">
+                        <th>Property ID</th>
+                        <th>Title</th>
+                        <th>Location</th>
+                        <th>Owner</th>
+                        <th>Action</th>
+                    </tr>
+
+                    <tr class="border-b border-black/30">
+                        <td>1</td>
+                        <td>2BHK Apartment</td>
+                        <td>MG Road, Kochi</td>
+                        <td>Aryan Nair</td>
+                        <td><button class="border-2 border-green-500 w-[100px] text-green-500 hover:bg-green-100">View</button></td>
+                    </tr>
+
+                    <tr class="border-b border-black/30">
+                        <td>2</td>
+                        <td>Luxury Villa</td>
+                        <td>Kumarakom, Kottayam</td>
+                        <td>Diya Menon</td>
+                        <td><button class="border-2 border-green-500 w-[100px] text-green-500 hover:bg-green-100">View</button></td>
+                    </tr>
+
+                    <tr class="border-b border-black/30">
+                        <td>3</td>
+                        <td>Studio Flat</td>
+                        <td>Infopark, Kakkanad</td>
+                        <td>Rahul Varma</td>
+                        <td><button class="border-2 border-green-500 w-[100px] text-green-500 hover:bg-green-100">View</button></td>
+                    </tr>
+
+                    <tr class="border-b border-black/30">
+                        <td>4</td>
+                        <td>Commercial Space</td>
+                        <td>Thampanoor, Trivandrum</td>
+                        <td>Sneha Thomas</td>
+                        <td><button class="border-2 border-green-500 w-[100px] text-green-500 hover:bg-green-100">View</button></td>
+                    </tr>
+
+                    <tr class="border-b border-black/30">
+                        <td>5</td>
+                        <td>Beach House</td>
+                        <td>Varkala Beach, Kollam</td>
+                        <td>Karthik Ramesh</td>
+                        <td><button class="border-2 border-green-500 w-[100px] text-green-500 hover:bg-green-100">View</button></td>
+                    </tr>
+
+                    <tr class="border-b border-black/30">
+                        <td>6</td>
+                        <td>Plot for Sale</td>
+                        <td>Pala Highway, Kottayam</td>
+                        <td>Neha Raj</td>
+                        <td><button class="border-2 border-green-500 w-[100px] text-green-500 hover:bg-green-100">View</button></td>
+                    </tr>
+                </table>
+                </div>
+
+                <div id="feedback" class="flex flex-col justify-center items-center rounded-2xl bg-white shadow-2xl space-y-3 mt-20 text-lg text-center md:h-100">
+                    <span class="text-2xl font-bold">Feedback</span>
+                    <table class="w-[90%] h-60 text-center table-fixed">
+                        <tr class="border-b border-black/30 bg-[#ECF0F1] h-[50px]">
+                            <th>Customer Name</th>
+                            <th>Email</th>
+                            <th>Feedback</th>
+                            <th>Date</th>
+                            <th>Action</th>
+                        </tr>
+
+                        <tr class="border-b border-black/30">
+                            <td>Arjun Pillai</td>
+                            <td>arjunp@example.com</td>
+                            <td>Great experience! Easy to navigate and responsive team.</td>
+                            <td>2025-07-13</td>
+                            <td>
+                                <button class="border-2 border-red-500 w-[100px] text-red-500 hover:bg-red-100">Delete</button>
+                            </td>
+                        </tr>
+
+                        <tr class="border-b border-black/30">
+                            <td>Meera Jose</td>
+                            <td>meeraj@example.com</td>
+                            <td>The property details were very accurate. Loved the interface.</td>
+                            <td>2025-07-11</td>
+                            <td>
+                                <button class="border-2 border-red-500 w-[100px] text-red-500 hover:bg-red-100">Delete</button>
+                            </td>
+                        </tr>
+
+                        <tr class="border-b border-black/30">
+                            <td>Ravi Krishnan</td>
+                            <td>ravik@example.com</td>
+                            <td>Had issues uploading documents, please fix.</td>
+                            <td>2025-07-09</td>
+                            <td>
+                                <button class="border-2 border-red-500 w-[100px] text-red-500 hover:bg-red-100">Delete</button>
+                            </td>
+                        </tr>
+
+                        <tr class="border-b border-black/30">
+                            <td>Divya Mohan</td>
+                            <td>divyam@example.com</td>
+                            <td>Very smooth process. Would recommend to others.</td>
+                            <td>2025-07-06</td>
+                            <td>
+                                <button class="border-2 border-red-500 w-[100px] text-red-500 hover:bg-red-100">Delete</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                
+            </div>
+       </div>
+</body>
+</html>
+
+
+
+
+

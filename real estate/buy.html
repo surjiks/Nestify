@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/91537ba238.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://fonts.googleapis.com/css2?family=MuseoModerno&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="./style/style.css">
+    <title>buy</title>
+</head>
+<body class="relative">
+    <!-- navbar start -->
+    <div class="navbar md:flex md:justify-around h-20 items-center fixed left-0 right-0 z-50 bg-white">
+      <p class="-ml-50 text-2xl font-bold text-[#095B15] font-['MuseoModerno']">NESTIFY</p>
+      <div class="text-xl space-x-6 bg-[#8BD78BC9] p-1 w-90 h-10 text-center rounded-full ">
+        <a class="hover:underline" href="homepage.html">Home</a>
+        <a class="hover:underline" href="aboutus.html">About Us</a>
+        <a class="underline" href="buy.html">Buy</a>
+        <a class="hover:underline" href="sell.html">Sell</a>
+      </div>
+      <div class="-mr-45 text-2xl space-x-4">
+
+        <span class="relative flex size-3 ml-5 top-2">
+        <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75"></span>
+        <span class="relative inline-flex size-3 rounded-full bg-red-500"></span>
+        </span>
+
+        <a href="chat.html"><i class="fa-regular fa-comments"></i></a>
+        <a href="wishlist.html"><i class="fa-regular fa-heart"></i></a>
+        <a href="profile.html"><i class="fa-solid fa-user"></i></a>
+      </div>
+    </div>
+    <!-- navbar end --> 
+
+    <!-- sidebar  -->
+<div class="flex">
+     <div class="md:h-221 md:w-60 w-20 md:outline fixed md:top-20 top-20">
+        <div class="p-2 mt-5">
+            <span class="md:text-2xl font-bold">All Categories <i class="fa-solid fa-caret-down"></i></span>
+            <div class="grid md:justify-center mt-3">
+                <span class="md:text-xl text-sm font-bold">For sale <i class="fa-solid fa-caret-down"></i></span>
+                <button class="flex items-center space-x-5 h-10 text-xl mt-5"><i class="fa-solid fa-house" style="color: #095B15;"></i><span class="max-md:hidden">Houses</span></button>
+                <button class="flex items-center space-x-5 h-10 text-xl"><i class="fa-solid fa-building-user" style="color: #095B15;"></i><span class="max-md:hidden">Apartments</span></button>
+                <button class="flex items-center space-x-5 h-10 text-xl"><i class="fa-solid fa-map-location-dot" style="color: #095B15;"></i><span class="max-md:hidden">Lands</span></button>
+                <button class="flex items-center space-x-5 h-10 text-xl"><i class="fa-solid fa-earth-americas" style="color: #095B15;"></i><span class="max-md:hidden">Plots</span></button>
+            </div>
+            <div class="grid md:justify-center mt-5">
+                <span class="md:text-xl text-sm font-bold">For Rent <i class="fa-solid fa-caret-down"></i></span>
+                <button class="flex items-center space-x-5 h-10 text-xl mt-5"><i class="fa-solid fa-house" style="color: #095B15;"></i><span class="max-md:hidden">Houses</span></button>
+                <button class="flex items-center space-x-5 h-10 text-xl"><i class="fa-solid fa-building-user" style="color: #095B15;"></i><span class="max-md:hidden">Apartments</span></button>
+                <button class="flex items-center space-x-5 h-10 text-xl"><i class="fa-solid fa-map-location-dot" style="color: #095B15;"></i><span class="max-md:hidden">Lands</span></button>
+                <button class="flex items-center space-x-5 h-10 text-xl"><i class="fa-solid fa-earth-americas" style="color: #095B15;"></i><span class="max-md:hidden">Plots</span></button>
+            </div>
+            <div class="grid md:justify-center mt-5">
+                <span class="md:text-xl max-md:hidden font-bold">Manage Profile<i class="fa-solid fa-caret-down"></i></span>
+                <a href="profile.html"><button class="flex items-center space-x-5 h-10 text-xl mt-5"><i class="fa-solid fa-user" style="color: #095B15;"></i><span class="max-md:hidden">My Profile</span></button></a>
+                <a href="landing.html"><button class="flex items-center space-x-5 h-10 text-xl"><i class="fa-solid fa-arrow-right-from-bracket" style="color: #095B15;"></i><span class="max-md:hidden">Logout</span></button></a>
+            </div>
+        </div>
+     </div>
+     <span class="absolute top-20 left-62 text-xl font-bold">Fresh Recomendation</span>
+    <span class="absolute top-25 left-230 text-xl font-bold">-----FEATURED-----</span>
+     <div class="grid md:grid-cols-5 grid-cols-1 justify-around gap-5 gap-y-20 p-6 w-390 absolute md:left-60 md:top-30 left-20 top-30">
+            
+        <div class="outline h-80 w-65 relative">
+            <a href="propertyview.html">
+            <img class="h-50 w-full object-cover" src="image/homepic1.jpeg" alt="">
+            <span class="absolute top-2 right-2 bg-white w-8 text-center rounded-full"><i class="fa-regular fa-heart text-2xl mt-1"></i></span>
+            <p class="bg-[#EBDC37] w-20 text-sm text-center absolute top-48">FEATURED</p>
+            <p class="text-end font-bold text-xl pr-4 pt-1">₹ 75,00,000/-</p>
+            <p class="font-bold text-lg pl-2">3-BHK 3-Bathroom 1250sqft</p>
+            <p class="text-black/70 pl-3">House for sale</p>
+            <p class="text-black/70 pl-3">Kazhakoottam, Thiruvananthapuram</p></a>
+        </div>
+        <div class="outline h-80 w-65 relative">
+            <a href="propertyview.html">
+            <img class="h-50 w-full object-cover" src="image/homepic2.jpeg" alt="">
+            <span class="absolute top-2 right-2 bg-white w-8 text-center rounded-full"><i class="fa-regular fa-heart text-2xl mt-1"></i></span>
+            <p class="bg-[#EBDC37] w-20 text-sm text-center absolute top-48">FEATURED</p>
+            <p class="text-end font-bold text-xl pr-4 pt-1">₹ 75,00,000/-</p>
+            <p class="font-bold text-lg pl-2">3-BHK 3-Bathroom 1250sqft</p>
+            <p class="text-black/70 pl-3">House for sale</p>
+            <p class="text-black/70 pl-3">Kazhakoottam, Thiruvananthapuram</p></a>
+        </div>
+        <div class="outline h-80 w-65 relative">
+            <a href="propertyview.html">
+            <img class="h-50 w-full object-cover" src="image/homepic-3.jpeg" alt="">
+            <span class="absolute top-2 right-2 bg-white w-8 text-center rounded-full"><i class="fa-regular fa-heart text-2xl mt-1"></i></span>
+            <p class="bg-[#EBDC37] w-20 text-sm text-center absolute top-48">FEATURED</p>
+            <p class="text-end font-bold text-xl pr-4 pt-1">₹ 75,00,000/-</p>
+            <p class="font-bold text-lg pl-2">3-BHK 3-Bathroom 1250sqft</p>
+            <p class="text-black/70 pl-3">House for sale</p>
+            <p class="text-black/70 pl-3">Kazhakoottam, Thiruvananthapuram</p></a>
+        </div>
+        <div class="outline h-80 w-65 relative">
+            <a href="propertyview.html">
+            <img class="h-50 w-full object-cover" src="image/homepic4.jpeg" alt="">
+            <span class="absolute top-2 right-2 bg-white w-8 text-center rounded-full"><i class="fa-regular fa-heart text-2xl mt-1"></i></span>
+            <p class="bg-[#EBDC37] w-20 text-sm text-center absolute top-48">FEATURED</p>
+            <p class="text-end font-bold text-xl pr-4 pt-1">₹ 75,00,000/-</p>
+            <p class="font-bold text-lg pl-2">3-BHK 3-Bathroom 1250sqft</p>
+            <p class="text-black/70 pl-3">House for sale</p>
+            <p class="text-black/70 pl-3">Kazhakoottam, Thiruvananthapuram</p></a>
+        </div>
+        <div class="outline h-80 w-65 relative">
+            <a href="propertyview.html">
+            <img class="h-50 w-full" src="image/homepic1.jpeg" alt="">
+            <span class="absolute top-2 right-2 bg-white w-8 text-center rounded-full"><i class="fa-regular fa-heart text-2xl mt-1"></i></span>
+            <p class="bg-[#EBDC37] w-20 text-sm text-center absolute top-48">FEATURED</p>
+            <p class="text-end font-bold text-xl pr-4 pt-1">₹ 75,00,000/-</p>
+            <p class="font-bold text-lg pl-2">3-BHK 3-Bathroom 1250sqft</p>
+            <p class="text-black/70 pl-3">House for sale</p>
+            <p class="text-black/70 pl-3">Kazhakoottam, Thiruvananthapuram</p></a>
+        </div> 
+        <span class="absolute top-90 left-152 text-xl font-bold">-----HOUSES & APARTMENTS-----</span>
+        <div class="outline h-80 w-65 relative">
+            <a href="propertyview.html">
+            <img class="h-50 w-full object-cover" src="image/homepic1.jpeg" alt="">
+            <span class="absolute top-2 right-2 bg-white w-8 text-center rounded-full"><i class="fa-regular fa-heart text-2xl mt-1"></i></span>
+            <p class="text-end font-bold text-xl pr-4 pt-1">₹ 75,00,000/-</p>
+            <p class="font-bold text-lg pl-2">3-BHK 3-Bathroom 1250sqft</p>
+            <p class="text-black/70 pl-3">House for sale</p>
+            <p class="text-black/70 pl-3">Kazhakoottam, Thiruvananthapuram</p></a>
+        </div>
+        <div class="outline h-80 w-65 relative">
+            <a href="propertyview.html">
+            <img class="h-50 w-full object-cover" src="image/homepic2.jpeg" alt="">
+            <span class="absolute top-2 right-2 bg-white w-8 text-center rounded-full"><i class="fa-regular fa-heart text-2xl mt-1"></i></span>
+            <p class="text-end font-bold text-xl pr-4 pt-1">₹ 75,00,000/-</p>
+            <p class="font-bold text-lg pl-2">3-BHK 3-Bathroom 1250sqft</p>
+            <p class="text-black/70 pl-3">House for sale</p>
+            <p class="text-black/70 pl-3">Kazhakoottam, Thiruvananthapuram</p></a>
+        </div>
+        <div class="outline h-80 w-65 relative">
+            <a href="propertyview.html">
+            <img class="h-50 w-full object-cover" src="image/homepic-3.jpeg" alt="">
+            <span class="absolute top-2 right-2 bg-white w-8 text-center rounded-full"><i class="fa-regular fa-heart text-2xl mt-1"></i></span>
+            <p class="text-end font-bold text-xl pr-4 pt-1">₹ 75,00,000/-</p>
+            <p class="font-bold text-lg pl-2">3-BHK 3-Bathroom 1250sqft</p>
+            <p class="text-black/70 pl-3">House for sale</p>
+            <p class="text-black/70 pl-3">Kazhakoottam, Thiruvananthapuram</p></a>
+        </div>
+        <div class="outline h-80 w-65 relative">
+            <a href="propertyview.html">
+            <img class="h-50 w-full object-cover" src="image/homepic4.jpeg" alt="">
+            <span class="absolute top-2 right-2 bg-white w-8 text-center rounded-full"><i class="fa-regular fa-heart text-2xl mt-1"></i></span>
+            <p class="text-end font-bold text-xl pr-4 pt-1">₹ 75,00,000/-</p>
+            <p class="font-bold text-lg pl-2">3-BHK 3-Bathroom 1250sqft</p>
+            <p class="text-black/70 pl-3">House for sale</p>
+            <p class="text-black/70 pl-3">Kazhakoottam, Thiruvananthapuram</p></a>
+        </div>
+        <div class="outline h-80 w-65 relative">
+            <a href="propertyview.html">
+            <img class="h-50 w-full" src="image/homepic1.jpeg" alt="">
+            <span class="absolute top-2 right-2 bg-white w-8 text-center rounded-full"><i class="fa-regular fa-heart text-2xl mt-1"></i></span>
+            <p class="text-end font-bold text-xl pr-4 pt-1">₹ 75,00,000/-</p>
+            <p class="font-bold text-lg pl-2">3-BHK 3-Bathroom 1250sqft</p>
+            <p class="text-black/70 pl-3">House for sale</p>
+            <p class="text-black/70 pl-3">Kazhakoottam, Thiruvananthapuram</p></a>
+        </div> 
+
+
+ <span class="absolute top-190 left-165 text-xl font-bold">-----LAND & PLOTS-----</span>
+            <div class="outline h-80 w-65 relative">
+            <a href="propertyview.html">
+            <img class="h-50 w-full" src="image/land1.jpeg" alt="">
+            <span class="absolute top-2 right-2 bg-white w-8 text-center rounded-full"><i class="fa-regular fa-heart text-2xl mt-1"></i></span>
+            <p class="text-end font-bold text-xl pr-4 pt-1">₹ 75,00,000/-</p>
+            <p class="font-bold text-lg pl-2">35 Cent Plot For sale</p>
+            <p class="text-black/70 pl-3">Plot for sale</p>
+            <p class="text-black/70 pl-3">Kazhakoottam, Thiruvananthapuram</p></a>
+        </div>
+        <div class="outline h-80 w-65 relative">
+            <a href="propertyview.html">
+            <img class="h-50 w-full object-cover" src="image/land4.jpeg" alt="">
+            <span class="absolute top-2 right-2 bg-white w-8 text-center rounded-full"><i class="fa-regular fa-heart text-2xl mt-1"></i></span>
+            <p class="text-end font-bold text-xl pr-4 pt-1">₹ 75,00,000/-</p>
+            <p class="font-bold text-lg pl-2">35 Cent Plot For sale</p>
+            <p class="text-black/70 pl-3">Plot for sale</p>
+            <p class="text-black/70 pl-3">Kazhakoottam, Thiruvananthapuram</p></a>
+        </div>
+        <div class="outline h-80 w-65 relative">
+            <a href="propertyview.html">
+            <img class="h-50 w-full" src="image/land2.jpeg" alt="">
+            <span class="absolute top-2 right-2 bg-white w-8 text-center rounded-full"><i class="fa-regular fa-heart text-2xl mt-1"></i></span>
+            <p class="text-end font-bold text-xl pr-4 pt-1">₹ 75,00,000/-</p>
+            <p class="font-bold text-lg pl-2">35 Cent Plot For sale</p>
+            <p class="text-black/70 pl-3">Plot for sale</p>
+            <p class="text-black/70 pl-3">Kazhakoottam, Thiruvananthapuram</p></a>
+        </div>
+        <div class="outline h-80 w-65 relative">
+            <a href="propertyview.html">
+            <img class="h-50 w-full" src="image/land3.jpeg" alt="">
+            <span class="absolute top-2 right-2 bg-white w-8 text-center rounded-full"><i class="fa-regular fa-heart text-2xl mt-1"></i></span>
+            <p class="text-end font-bold text-xl pr-4 pt-1">₹ 75,00,000/-</p>
+            <p class="font-bold text-lg pl-2">35 Cent Plot For sale</p>
+            <p class="text-black/70 pl-3">Plot for sale</p>
+            <p class="text-black/70 pl-3">Kazhakoottam, Thiruvananthapuram</p></a>
+        </div>
+        <div class="outline h-80 w-65 relative">
+            <a href="propertyview.html">
+            <img class="h-50 w-full" src="image/land4.jpeg" alt="">
+            <span class="absolute top-2 right-2 bg-white w-8 text-center rounded-full"><i class="fa-regular fa-heart text-2xl mt-1"></i></span>
+            <p class="text-end font-bold text-xl pr-4 pt-1">₹ 75,00,000/-</p>
+            <p class="font-bold text-lg pl-2">35 Cent Plot For sale</p>
+            <p class="text-black/70 pl-3">Plot for sale</p>
+            <p class="text-black/70 pl-3">Kazhakoottam, Thiruvananthapuram</p></a>
+        </div>
+     </div>
+</div>
+</body>
+</html>
