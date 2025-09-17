@@ -29,12 +29,12 @@ body{
 }
 .property{
     margin-top: 50px;
-    height: 355px;
+    padding-bottom: 20px;
     background-color: white;
 }
 .property p{
     text-align: center;
-    font-size: large;
+    font-size: medium;
 }
 
 .whychooseus img{

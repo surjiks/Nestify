@@ -2,7 +2,7 @@ import React from "react";
 
 const Table = ({ title, columns, data, renderAction, Error }) => {
   return (
-    <div className="flex flex-col justify-center items-center rounded-2xl bg-white shadow-2xl space-y-3 mt-20 text-lg text-center max-md:w-[100%]">
+    <div className="flex flex-col justify-center items-center rounded-2xl bg-white shadow-2xl space-y-3 mt-15 text-lg text-center max-md:w-[100%] pb-10">
       <span className="text-2xl font-bold mt-3">{title}</span>
       {Error && <p className="text-red-500">{Error}</p>}
       <table className="w-[90%] table-fixed">

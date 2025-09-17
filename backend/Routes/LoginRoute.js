@@ -38,7 +38,7 @@ router.post('/Login',async (req,res)=>{
     }
     const valid = await bcrypt.compare(Password,result.password)
     if(valid){
-        const token = jwt.sign({UserName,UserRole:result.userRole},process.env.SECRET_KEY,{expiresIn:"1h"})
+        const token = jwt.sign({UserName,UserRole:result.userRole},process.env.SECRET_KEY,{expiresIn:"5h"})
         if(token){
             res.cookie("authToken",token,{httpOnly:true})
             res.status(200).json({msg:"sucessfully loggedin" ,role: result.userRole})

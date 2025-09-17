@@ -164,4 +164,20 @@ admin.get('/ViewPremiumMembers',AdminCheck,async(req,res)=>{
         console.log(error);  
     }
 })
+
+admin.get('/UserProperty/:userName',async(req,res)=>{
+    const UserName = req.params.userName;
+    const date = new Date();
+
+    await AddProperty.updateMany({ userName:UserName, DueDate: { $lt: date } },{ $set: { status: "Expired" } });
+    const result = await AddProperty.find({userName:UserName})
+
+     if (result.length === 0) {
+    return res.status(404).json({ msg: "No listings found for this user" });
+     }
+
+     res.status(200).json(result);
+})
+
+
 export default admin

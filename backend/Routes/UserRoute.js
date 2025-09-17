@@ -132,14 +132,14 @@ user.delete('/DeleteProperty/:id',UserCheck,async(req,res)=>{
 //buy property
 user.get('/BuyProperty',UserCheck,async(req,res)=>{
     try{
-    const properties = await AddProperty.find({status:"Active"},{PropertyImage:0,AadharCard:0,TaxReciept:0,_id:0,__v:0})
+    const properties = await AddProperty.find({status:"Active"})
     if(properties.length==0){
         res.status(404).json({msg:"No properties Listed"})
     }
-    const HousesAndVillas = properties.filter(value=>value.Category=="house/apartment")
-    const LandAndPlots = properties.filter(value=>value.Category=="land/plot")
-    res.status(200).json({HousesAndVillas,LandAndPlots})
-    console.log(HousesAndVillas,LandAndPlots);
+    // const HousesAndVillas = properties.filter(value=>value.Category=="house/apartment")
+    // const LandAndPlots = properties.filter(value=>value.Category=="land/plot")
+    res.status(200).json(properties)
+    console.log(properties);
     }catch(err){
         console.log(err);
     }       

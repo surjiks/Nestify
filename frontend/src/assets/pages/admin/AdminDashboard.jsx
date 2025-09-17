@@ -12,7 +12,7 @@ const AdminDashboard = () => {
     <>
       <AdminNavbar />
       <AdminSidbar />
-      <div id="home" className="absolute md:left-80 md:top-30 left-20 top-20 w-[70%] scroll-mt-24">
+      <div id="home" className="absolute md:left-80 md:top-30 left-20 top-20 w-[70%] scroll-mt-24 pb-10">
         <Hero/>
         <div id="request" className="scroll-mt-24">
           <Requests />

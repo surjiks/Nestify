@@ -1,10 +1,12 @@
 import React from 'react'
-import Navbar from '../../components/user/Navbar'
 import '../style/HomePage.css' 
+import Hero from './Hero'
+import PropertyGrid from './PropertyGrid'
 const HomePage = () => {
   return (
     <div>
-        <Navbar/>
+       <Hero />
+       <PropertyGrid />
     </div>
   )
 }
