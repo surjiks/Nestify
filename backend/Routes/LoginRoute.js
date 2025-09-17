@@ -6,15 +6,13 @@ import { signup } from "../Models/model.js"
 const router = Router();
 
 router.post('/SignUp',async(req,res)=>{
-    const {UserName,Email,Password,ConfirmPassword} = req.body
-
+    try{
+    const {UserName,Email,Password} = req.body
     const existingUser = await signup.findOne({$or:[{userName: UserName},{email: Email}]})
     if(existingUser){
         res.status(404).json({msg:"User Already Exist"})
         console.log("User Already Exist");
     }else{
-    try{
-    if(Password == ConfirmPassword){
     const newPassword = await bcrypt.hash(Password,10)
     const newUser = new signup({
         userName:UserName,
@@ -25,14 +23,9 @@ router.post('/SignUp',async(req,res)=>{
     await newUser.save();
     res.status(200).json({msg:"sign up sucessfully"})
     console.log("saved");
-    
-    }else{
-        res.status(404).json({msg:"Password didn't match"})
-        console.log("error");
     }
     }catch{
-        res.status(404).json({msg:"Someting went wrong"})
-    }
+        res.status(500).json({msg:"Someting went wrong"})
     }
 })
 
@@ -48,7 +41,7 @@ router.post('/Login',async (req,res)=>{
         const token = jwt.sign({UserName,UserRole:result.userRole},process.env.SECRET_KEY,{expiresIn:"1h"})
         if(token){
             res.cookie("authToken",token,{httpOnly:true})
-            res.status(200).json({msg:"sucessfully loggedin"})
+            res.status(200).json({msg:"sucessfully loggedin" ,role: result.userRole})
         }else{
             res.status(400).json({msg:"something went wrong in token generation"})
         } 

@@ -4,10 +4,23 @@ import AdminCheck from "../Middleware/admin.js";
 
 const admin = Router();
 
-admin.post("/ApprovePropery",AdminCheck,async(req,res)=>{
+admin.get('/ViewProperty',AdminCheck,async(req,res)=>{
+    try {
+        const result = await AddProperty.find({status:'Pending'})
+        console.log(result);
+        if(result.length==0){
+        res.status(404).json({msg:"No Pending Property Found"})
+    }
+    res.status(200).json(result)
+    } catch (error) {
+        console.log(error);
+    }
+})
+
+admin.post("/ApproveProperty/:id",AdminCheck,async(req,res)=>{
     try{
-    const {UserName,PropertyId} = req.body
-   const result = await AddProperty.findOne({userName:UserName,_id:PropertyId})
+    const PropertyId = req.params.id
+   const result = await AddProperty.findOne({_id:PropertyId})
    if(result){
         if(result.status == "Pending"){
             
@@ -15,7 +28,7 @@ admin.post("/ApprovePropery",AdminCheck,async(req,res)=>{
             const dueDate = new Date(issueDate);  //This creates a copy of the issueDate objec
             dueDate.setMonth(dueDate.getMonth() + 1); //.getMonth() returns the month number (0 for January, 1 for February, etc.)  .setMonth() sets the month, and here we’re adding 1 month to the current month.
 
-            await AddProperty.updateOne({userName:UserName,_id:PropertyId},{$set:{status:"Active", IssueDate:issueDate, DueDate:dueDate}})
+            await AddProperty.updateOne({_id:PropertyId},{$set:{status:"Active", IssueDate:issueDate, DueDate:dueDate}})
             res.status(200).json({msg:"Listing approved !"})
         }else{
             res.status(404).json({msg:"Already approved"})
@@ -30,14 +43,14 @@ admin.post("/ApprovePropery",AdminCheck,async(req,res)=>{
    }
 })
 
-admin.post('/RejectProperty',AdminCheck,async(req,res)=>{
+admin.post('/RejectProperty/:id',AdminCheck,async(req,res)=>{
     try{
-    const {UserName,ProjectName} = req.body
-   const result = await AddProperty.findOne({userName:UserName,ProjectName:ProjectName})
+    const PropertyId = req.params.id
+   const result = await AddProperty.findOne({_id:PropertyId})
    if(result){
         if(result.status == "Pending"){
 
-            await AddProperty.updateOne({userName:UserName,ProjectName:ProjectName},{$set:{status:"Rejected"}})
+            await AddProperty.updateOne({_id:PropertyId},{$set:{status:"Rejected"}})
             res.status(200).json({msg:"Listing Rejected !"})
         }else{
             res.status(404).json({msg:"Already approved/Rejected"})
@@ -63,16 +76,16 @@ admin.get('/ViewUsers',AdminCheck,async(req,res)=>{
 //view all properties
 admin.get('/ViewAllProperties',AdminCheck,async(req,res)=>{
     try{
-    const result = await AddProperty.find({},{_id:1, Type:1, area:1, userName:1})
+    const result = await AddProperty.find({status:"Active"})
     if(result.length==0){
         res.status(404).json({msg:"No Properties !!!"})
     }else{
-    console.log(result);
     res.status(200).json(result)
     }
     }catch(error){
         console.log(error);   
     }
+})
 
 //view selected property
 admin.get("/SelectedProperty/:id",AdminCheck,async(req,res)=>{
@@ -84,7 +97,29 @@ admin.get("/SelectedProperty/:id",AdminCheck,async(req,res)=>{
         res.status(200).json(property)
     }
 })
-})
+
+
+admin.get("/PropertyImages/:id", async (req, res) => {
+  try {
+    const propertyId = req.params.id
+    const property = await AddProperty.findOne({_id:propertyId});
+
+    if (!property) {
+      return res.status(404).json({ msg: "Property not found" });
+    }
+
+    res.status(200).json({
+      PropertyImage: property.PropertyImage || null,
+      AadharCard: property.AadharCard || null,
+      TaxReceipt: property.TaxReciept || null,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ msg: "Server Error" });
+  }
+});
+
+
 
 //View Feedback
 admin.get('/AFeedback',AdminCheck,async(req,res)=>{
