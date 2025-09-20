@@ -2,6 +2,7 @@ import { Router } from "express";
 import jwt from 'jsonwebtoken'
 import bcrypt from "bcrypt"
 import { signup } from "../Models/model.js"
+import authenticate from '../Middleware/auth.js';
 
 const router = Router();
 
@@ -42,6 +43,7 @@ router.post('/Login',async (req,res)=>{
         if(token){
             res.cookie("authToken",token,{httpOnly:true})
             res.status(200).json({msg:"sucessfully loggedin" ,role: result.userRole})
+            
         }else{
             res.status(400).json({msg:"something went wrong in token generation"})
         } 
@@ -60,5 +62,10 @@ router.post("/logout",(req,res)=>{
     res.status(200).json({msg:"log out sucessfully"})
 })
 
+router.get('/profile',authenticate,(req,res)=>{
+    console.log(req.role);
+    
+    res.status(200).json({userName:req.name, userRole:req.role})
+})
 
 export {router}

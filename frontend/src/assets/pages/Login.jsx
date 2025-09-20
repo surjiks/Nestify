@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import bgimage from "../images/homepic-5.jpeg";
 import homeimage from "../images/homebg4.png";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+import { toast } from "react-toastify";
 
 const Login = () => {
 
@@ -9,36 +11,28 @@ const Login = () => {
     const [password,setPassword] = useState('')
     const [error,setError] = useState('')
 
+    const { login, profile } = useAuth()
     const navigate = useNavigate();
 
     const handleSubmit = async(e) => {
-        e.preventDefault()
-        try {
-            const res = await fetch('/api/Login',{
-                method: 'POST',
-                credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    UserName: username,
-                    Password: password
-                }),
-            });
-            if(!res.ok){
-                const errorData = await res.json()
-                throw new Error(errorData.msg || 'Login Failed')
-            }
-            const data = await res.json()
-            if(data.role === "admin"){
-                navigate('/admin')
-            }else{
-                navigate('/homepage')
-            }
-        } catch (error) {
-            setError(error.message || 'Invalid credentials: Please try again!')
-        }
+      e.preventDefault()
+      try {
+        await login(username, password)
+        toast.success('Welcome !')
+      } catch (error) {
+        setError(error.message || 'Invalid credentials: Please try again!')
+      }
     }
+
+    // Redirect whenever profile changes
+    useEffect(() => {
+      if (profile?.userRole === 'user') {
+        navigate('/homepage', { replace: true })
+      } else if (profile?.userRole === 'admin') {
+        navigate('/admin', { replace: true })
+      }
+    }, [profile])
+
 
   return (
     <div className="relative">

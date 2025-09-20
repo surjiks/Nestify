@@ -7,8 +7,14 @@ import VerifyProperty from './assets/pages/admin/VerifyProperty'
 import AuthLayout from './layouts/AuthLayout'
 import { MainLayout } from './layouts/MainLayout'
 import AdminLayout from './layouts/AdminLayout'
+import DashboardLayout from './layouts/DashboardLayout'
+import Protected from './assets/routes/Protected'
+import Buy from './assets/pages/user/Buy'
+import Sell from './assets/pages/user/Sell'
+import Dashboard from './assets/pages/user/Dashboard'
+import MyProperty from './assets/pages/user/MyProperty'
 
-const router = createBrowserRouter([
+export const router = createBrowserRouter([
   {
     element: <AuthLayout />,
     children: [
@@ -21,22 +27,26 @@ const router = createBrowserRouter([
     element: <MainLayout />,
     children: [
       {path: "homepage", element: <HomePage />},
+      {path: "buy", element:<Buy />},
     ]
   },
   {
-    element: <AdminLayout />,
+    element: (
+          <Protected role='admin'>
+            <AdminLayout />
+          </Protected>
+        ),
     children: [
       {path: "admin", element: <AdminDashboard />},
       {path: "verifyproperty/:id", element: <VerifyProperty />}
     ]
   },
+  {
+    element: <DashboardLayout />,
+    children: [
+      {path: "sell", element: <Sell />},
+      {path: "dashboard", element: <Dashboard />},
+      {path: "myproperty", element: <MyProperty />},
+    ]
+  }
 ])
-
-function App() {
-
-  return (
-    <RouterProvider router={router} />
-  )
-}
-
-export default App

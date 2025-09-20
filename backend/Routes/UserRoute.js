@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { AddProperty,Enquiry,Premium, Wishlist, Feedback} from "../Models/model.js";
+import { AddProperty,Enquiry,Premium, Wishlist, Feedback, signup} from "../Models/model.js";
 import upload from "../Middleware/upload.js";
 import UserCheck from "../Middleware/user.js";
 
@@ -139,7 +139,6 @@ user.get('/BuyProperty',UserCheck,async(req,res)=>{
     // const HousesAndVillas = properties.filter(value=>value.Category=="house/apartment")
     // const LandAndPlots = properties.filter(value=>value.Category=="land/plot")
     res.status(200).json(properties)
-    console.log(properties);
     }catch(err){
         console.log(err);
     }       
@@ -192,17 +191,17 @@ user.get('/ViewEnquiry',UserCheck,async(req,res)=>{
 
 //my property
 user.get('/myProperty',UserCheck,async(req,res)=>{
-    const UserName = req.name
+    const {UserName} = req.query
+    console.log(UserName);
     
     const date = new Date();
     await AddProperty.updateMany({userName:UserName, DueDate:{$lt:date}} , {$set: {status:"Expired"}})
-    const result = await AddProperty.find({userName:UserName},{PropertyImage:0,AadharCard:0,TaxReciept:0,_id:0,__v:0})
+    const result = await AddProperty.find({userName:UserName})
+    
     if(result.length==0){
-        res.status(404).json({msg:"You have no listing"})
-        console.log("You have no listing");   
+        res.status(404).json({msg:"You have no listing"})  
     }else{
         res.status(200).json(result)
-         console.log(result);
     }
 })
 
@@ -350,5 +349,20 @@ user.get('/Filter',UserCheck,async(req,res)=>{
         console.log(error);
     }
     
+})
+
+//view profile
+
+user.get('/ViewProfile',UserCheck,async(req,res)=>{
+    try {
+        const { userName }= req.query
+        const result = await signup.findOne({userName:userName})
+        if(!result){
+            res.status(404).json({msg:"User Not Found"})
+        }
+        res.status(200).json(result)
+    } catch (error) {
+        console.log(error); 
+    }
 })
 export default user
