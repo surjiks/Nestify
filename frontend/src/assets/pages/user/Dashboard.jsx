@@ -38,14 +38,19 @@ const Dashboard = () => {
         <div className="grid md:w-[600px] p-8 md:ml-10">
             <span className="font-bold text-2xl">{userProfile.userName}</span>
             {userProfile.address?(
-                <p className="text-lg pl-5"><b>Address:</b>  24, Lotus Residency, 2nd Cross, MG Road, <br/>
-                City: Bengaluru State: Karnataka <br/>Pincode: 560001 Country: India</p>):
+                <p className="text-lg pl-5">
+                 <b>Phone :</b>  {userProfile.phone} <br />
+                 <b>Email :</b>  {userProfile.email} <br />
+                 <b>Address :</b>  {userProfile.address} <br />
+                  </p>
+                
+            ):
                 (<p className='text-red-500 text-xl'>Please Update Profile</p>)}
             
         </div>
         <div className="grid outline w-[300px] max-md:h-50 md:justify-end justify-center items-center text-lg text-white -space-y-15">
-            <div className="outline h-[40px] w-[150px] flex items-center justify-center rounded-lg bg-[#095B15] "><a href="updateprofile.html">Edit Profile</a></div>
-            <div className="outline h-[40px] w-[150px] flex items-center justify-center rounded-lg bg-[#C50909]"><a href="landing.html">Log Out</a></div>
+            <div className="outline h-[40px] w-[150px] flex items-center justify-center rounded-lg bg-[#095B15] "><Link to={'/updateprofile'}>Edit Profile</Link></div>
+            {/* <div className="outline h-[40px] w-[150px] flex items-center justify-center rounded-lg bg-[#C50909]"><a href="landing.html">Log Out</a></div> */}
         </div>
      </div>
         <div className="border-b-1 mt-5 max-md:hidden"></div>

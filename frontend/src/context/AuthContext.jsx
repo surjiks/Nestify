@@ -56,8 +56,8 @@ export function AuthProvider({ children }) {
                 throw new Error(errorData.msg || 'Login Failed')
             }
             // console.log(role);
-            
             await fetchProfile();
+            await fetchProperties()
     },[fetchProfile])
 
     const logout = useCallback(async () => {

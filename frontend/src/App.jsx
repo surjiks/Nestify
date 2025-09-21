@@ -13,6 +13,9 @@ import Buy from './assets/pages/user/Buy'
 import Sell from './assets/pages/user/Sell'
 import Dashboard from './assets/pages/user/Dashboard'
 import MyProperty from './assets/pages/user/MyProperty'
+import UpdateProperty from './assets/pages/user/UpdateProperty'
+import UpdateProfile from './assets/pages/user/UpdateProfile'
+import PropertyView from './assets/pages/user/PropertyView'
 
 export const router = createBrowserRouter([
   {
@@ -28,6 +31,7 @@ export const router = createBrowserRouter([
     children: [
       {path: "homepage", element: <HomePage />},
       {path: "buy", element:<Buy />},
+      {path: 'propertyview/:id', element: <PropertyView/>},
     ]
   },
   {
@@ -47,6 +51,8 @@ export const router = createBrowserRouter([
       {path: "sell", element: <Sell />},
       {path: "dashboard", element: <Dashboard />},
       {path: "myproperty", element: <MyProperty />},
+      {path: "updateproperty/:id", element: <UpdateProperty />},
+      {path: "updateprofile", element: <UpdateProfile />},
     ]
   }
 ])

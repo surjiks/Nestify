@@ -7,8 +7,7 @@ const Buy = () => {
   const { properties, propLoading } = useAuth();
   return (
     <div className="flex">
-      <Sidebar />
-
+      
       {/* <span className="text-xl font-bold">Fresh Recomendation</span>
             <span className="text-xl font-bold">-----FEATURED-----</span> */}
       {propLoading ? (

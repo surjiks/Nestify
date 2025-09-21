@@ -5,9 +5,10 @@ const details = new Schema({
     userName:{type:String,unique:true,required:true},
     email:String,
     password:String,
-    userRole:String
-},{
-  versionKey: false   // this removes __v everywhere
+    userRole:String,
+    phone: String,
+    phone2: String,
+    address: String
 })
 const signup = model('Sign Up',details) 
 

@@ -227,7 +227,7 @@ const Sell = () => {
             <label className="text-lg">Description*</label>
             <div className="ml-10 mt-4">
               <textarea
-                className="outline w-[70%] rounded-lg"
+                className="outline w-[70%] rounded-lg pl-5"
                 rows="4"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
@@ -247,14 +247,14 @@ const Sell = () => {
               <div className="flex flex-col">
                 Area :{" "}
                 <input
-                  className="outline rounded-lg h-8"
+                  className="outline rounded-lg h-8 pl-5"
                   value={area}
                   onChange={(e) => setArea(e.target.value)}
                   type="text"
                 />
                 City :{" "}
                 <input
-                  className="outline rounded-lg h-8"
+                  className="outline rounded-lg h-8 pl-5"
                   value={city}
                   onChange={(e) => setCity(e.target.value)}
                   type="text"
@@ -263,14 +263,14 @@ const Sell = () => {
               <div className="flex flex-col">
                 State :{" "}
                 <input
-                  className="outline rounded-lg h-8"
+                  className="outline rounded-lg h-8 pl-5"
                   value={state}
                   onChange={(e) => setState(e.target.value)}
                   type="text"
                 />
                 Pin :{" "}
                 <input
-                  className="outline rounded-lg h-8"
+                  className="outline rounded-lg h-8 pl-5"
                   value={pincode}
                   onChange={(e) => setPinCode(e.target.value)}
                   type="number"
@@ -286,7 +286,7 @@ const Sell = () => {
           <div className="ml-10 mt-4 text-xl pl-5 mt-2 relative">
             <i className="fa-solid fa-dollar-sign absolute top-3 left-10"></i>
             <input
-              className="outline w-[70%] pl-4 rounded-lg h-10"
+              className="outline w-[70%] pl-15 rounded-lg h-10"
               type="text"
               value={price}
               onChange={(e) => setPrice(e.target.value)}

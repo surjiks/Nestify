@@ -74,25 +74,28 @@ user.put('/EditProperty/:id',UserCheck,async(req,res)=>{
     try{
     const UserName = req.name
     const PropertyId = req.params.id
-    const {newCategory,newType,newBHK,newBathrooms,newProjectArea,newProjectName,newTitle,newDescription,newPrice} = req.body
+
+    const {BHK,Bathrooms,PArea,ProjectName,Title,Description,area,city,state,pincode,Price} = req.body
     console.log(UserName,PropertyId);
     const result = await AddProperty.findOne({_id:PropertyId,userName:UserName})
     console.log(result);
     if(!result){
-        res.status(200).json({msg:"Property not found"})
+        res.status(404).json({msg:"Property not found"})
     }else{
     
     if(result.status == "Pending" || result.status == "Active"){
     
-        result.Category = newCategory,
-        result.Type = newType,
-        result.BHK = newBHK,
-        result.Bathrooms = newBathrooms,
-        result.PArea = newProjectArea,
-        result.ProjectName = newProjectName,
-        result.Title = newTitle,
-        result.Description = newDescription,
-        result.Price = newPrice
+        result.BHK = BHK,
+        result.Bathrooms = Bathrooms,
+        result.PArea = PArea,
+        result.ProjectName = ProjectName,
+        result.Title = Title,
+        result.Description = Description,
+        result.Price = Price,
+        result.area = area,
+        result.city = city,
+        result.state = state,
+        result.pincode = pincode
 
         await result.save()
         res.status(200).json({msg:"Property Updated Sucessfully"})
@@ -143,6 +146,22 @@ user.get('/BuyProperty',UserCheck,async(req,res)=>{
         console.log(err);
     }       
 })
+
+// Get single property by ID
+user.get('/BuyProperty/:id', UserCheck, async (req, res) => {
+  try {
+    const propertyId = req.params.id;
+    const property = await AddProperty.findById(propertyId);
+    if (!property) {
+      return res.status(404).json({ msg: "Property not found" });
+    }
+    res.status(200).json(property);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ msg: "Something went wrong" });
+  }
+});
+
 
 //View selected property and send enquiry
 user.post('/ViewAndEnquiry',UserCheck,async(req,res)=>{
@@ -200,6 +219,17 @@ user.get('/myProperty',UserCheck,async(req,res)=>{
     
     if(result.length==0){
         res.status(404).json({msg:"You have no listing"})  
+    }else{
+        res.status(200).json(result)
+    }
+})
+
+//get proeprty
+user.get('/getProperty/:id',UserCheck,async(req,res)=>{
+    const {id} = req.params
+    const result = await AddProperty.findOne({_id:id})
+    if(!result){
+        res.status(404).json({msg:"Property Not Found"})
     }else{
         res.status(200).json(result)
     }
@@ -356,6 +386,7 @@ user.get('/Filter',UserCheck,async(req,res)=>{
 user.get('/ViewProfile',UserCheck,async(req,res)=>{
     try {
         const { userName }= req.query
+        
         const result = await signup.findOne({userName:userName})
         if(!result){
             res.status(404).json({msg:"User Not Found"})
@@ -363,6 +394,32 @@ user.get('/ViewProfile',UserCheck,async(req,res)=>{
         res.status(200).json(result)
     } catch (error) {
         console.log(error); 
+    }
+})
+
+//update profile
+
+user.put('/updateProfile',UserCheck,async(req,res)=>{
+    try {
+        const currentUsername = req.name
+       const {UserName,Email,Phone,Phone2,Address} = req.body
+       const result = await signup.findOneAndUpdate({userName:currentUsername},{
+                $set: {
+                    userName: UserName,
+                    email: Email,
+                    phone: Phone,
+                    phone2: Phone2,
+                    address: Address
+                }
+            },
+            { new: true })
+            if (!result){
+            return res.status(404).json({ msg: "User not found" });
+            }
+             res.status(200).json({ msg: "Profile updated successfully" });
+       
+    } catch (error) {
+        res.status(500).json({ msg: "Something went wrong" });
     }
 })
 export default user

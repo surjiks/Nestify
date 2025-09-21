@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const MyProperty = () => {
   const [myProperty, setMyProperty] = useState([]);
   const { profile } = useAuth();
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchMyProperty = async () => {
@@ -17,6 +19,7 @@ const MyProperty = () => {
           throw new Error(errorData.msg || "You have no listing");
         }
         const data = await res.json();
+        
         setMyProperty(data);
       } catch (error) {
         setError(error.message);
@@ -37,7 +40,7 @@ const MyProperty = () => {
       case "Active":
         return "bg-[#28a745]";
       case "Pending":
-        return "bg-[#fd7e14]";
+        return "bg-gray-500";
       case "Expired":
         return "bg-[#b02a37]";
       case "Rejected":
@@ -72,24 +75,28 @@ const MyProperty = () => {
                       src={`data:image/jpeg;base64,${property.PropertyImage}`}
                       alt="property image"
                     />
-                    <div className="p-3">
+                    <div className="p-3 w-[35%]">
                       <p className="text-2xl font-bold">{property.Title}</p>
                       <p className="text-xl pl-5 text-black/60">
                         {property.BHK}-BHK {property.Bathrooms}-Bathrooms{" "}
                         {property.PArea}sqft ...
                       </p>
                     </div>
-                    <div className="ml-20 flex items-center space-x-15">
+                    <div className="flex items-center break-all w-[150px]">
                       <span className="font-bold text-2xl">
                         ₹ {property.Price}
                       </span>
-                      <span
+                    </div>
+                    <div>
+                      <div className="ml-5 flex items-center h-full">
+                        <span
                         className={`text-white text-lg p-1 w-30 text-center rounded-lg ${getStatusBg(
                           property.status
                         )}`}
                       >
                         {property.status}
                       </span>
+                      </div>
                     </div>
                     {property.status == "Expired" && (
                       <div className="m-auto">
@@ -100,14 +107,15 @@ const MyProperty = () => {
                     )}
                   </div>
 
-                  <div className="outline flex items-center p-2 justify-end">
-                    <button className="text-red-500 px-5 hover:outline hover:bg-red-100">
+                  {(property.status == "Pending" || property.status == "Active") && (
+                    <div className="outline flex items-center p-2 justify-end">
+                    <button className="text-red-500 px-5 hover:outline hover:bg-red-100"
+                    onClick={()=>navigate(`/updateproperty/${property._id}`)}>
                       Edit Details
                     </button>
-                    {/* <button onClick={()=>handleDelete(property)} className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md text-sm">
-                      Delete
-                    </button> */}
+  
                   </div>
+                  )}
                 </div>
               </div>
             </div>

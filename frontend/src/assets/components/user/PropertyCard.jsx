@@ -1,11 +1,12 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const PropertyCard = ({property}) => {
   
   return (
   
       <div className="outline w-65 relative hover:scale-105 transition-transform duration-300 bg-white mt-10">
-            <a href="propertyview.html">
+            <Link to={`/propertyview/${property._id}`}>
             <img
                 className='h-50 w-full object-cover'
                 src={`data:image/jpeg;base64,${property.PropertyImage}`}
@@ -17,7 +18,8 @@ const PropertyCard = ({property}) => {
             <p className="text-end font-bold text-xl pr-4 pt-1">₹{property.Price}/-</p>
             <p className="font-bold text-lg pl-2">{property.BHK} BHK&nbsp;|&nbsp;2 Floor&nbsp;|&nbsp;{property.PArea}sqft</p>
             <p className="text-black/70 pl-3">House for sale</p>
-            <p className="text-black/70 pl-3 break-all">{property.area} , {property.city}</p></a>
+            <p className="text-black/70 pl-3 break-all">{property.area} , {property.city}</p>
+            </Link>
         </div>
 
 
