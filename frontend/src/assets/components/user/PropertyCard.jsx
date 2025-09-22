@@ -1,7 +1,50 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-const PropertyCard = ({property}) => {
+const PropertyCard = ({property, handleToggleWishlist}) => {
+
+  const [isWishlisted,setIsWishlisted] = useState(false)
+
+    useEffect(() => {
+    const checkWishlist = async () => {
+      try {
+        const res = await fetch(`/api/WishlistStatus/${property._id}`)
+        const data = await res.json()
+        if (res.ok) {
+          setIsWishlisted(data.isWishlisted)
+        }
+      } catch (error) {
+        console.error('Error fetching wishlist status:', error)
+      }
+    }
+    checkWishlist()
+  }, [property._id])
+
+  const toggleWishlist = async(e) => {
+    e.preventDefault()
+    try {
+      const res = await fetch(`/api/Wishlist/${property._id}`,{
+        method: 'POST',credentials: 'include',
+        headers: {
+          "Content-Type": "application/json",
+        }
+      })
+      const data = await res.json()
+      if(res.ok){
+        if(data.status == "added"){
+          setIsWishlisted(true)
+        }else if(data.status == "removed"){
+          setIsWishlisted(false)
+        }
+        if(handleToggleWishlist){
+          handleToggleWishlist(property._id, data.status, property)
+        }
+      }
+    } catch (error) {
+      console.error("Error toggling wishlist:", error)
+    }
+  }
+
   
   return (
   
@@ -12,8 +55,7 @@ const PropertyCard = ({property}) => {
                 src={`data:image/jpeg;base64,${property.PropertyImage}`}
                 alt="Tax Receipt"
               />
-
-            <span className="absolute top-2 right-2 bg-white w-8 text-center rounded-full"><i className="fa-regular fa-heart text-2xl mt-1"></i></span>
+            <button onClick={toggleWishlist} className="absolute top-2 right-2 bg-white w-8 text-center rounded-full"><i className={`fa-regular fa-heart text-2xl mt-1 ${isWishlisted? 'fa-solid text-red-500' : 'fa-regular text-gray-600'}`}></i></button>
             <p className="bg-[#EBDC37] w-20 text-sm text-center absolute top-48">FEATURED</p>
             <p className="text-end font-bold text-xl pr-4 pt-1">₹{property.Price}/-</p>
             <p className="font-bold text-lg pl-2">{property.BHK} BHK&nbsp;|&nbsp;2 Floor&nbsp;|&nbsp;{property.PArea}sqft</p>

@@ -39,8 +39,8 @@ const Navbar = () => {
         <span className="relative inline-flex size-3 rounded-full bg-red-500"></span>
         </span>
         
-        <a href="chat.html"><i className="fa-regular fa-comments"></i></a>
-        <a href="wishlist.html"><i className="fa-regular fa-heart"></i></a>
+        {/* <a href="chat.html"><i className="fa-regular fa-comments"></i></a> */}
+        <Link to={"wishlist"}><i className="fa-regular fa-heart"></i></Link>
         <Link to={"dashboard"}><i className="fa-solid fa-user"></i></Link>
        {/* <p>{profile?.userName || "Guest"}</p> */}
        <button onClick={onLogout} >

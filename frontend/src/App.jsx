@@ -16,6 +16,9 @@ import MyProperty from './assets/pages/user/MyProperty'
 import UpdateProperty from './assets/pages/user/UpdateProperty'
 import UpdateProfile from './assets/pages/user/UpdateProfile'
 import PropertyView from './assets/pages/user/PropertyView'
+import Wishlist from './assets/pages/user/wishlist'
+import UserLayout from './layouts/UserLayout'
+
 
 export const router = createBrowserRouter([
   {
@@ -30,8 +33,14 @@ export const router = createBrowserRouter([
     element: <MainLayout />,
     children: [
       {path: "homepage", element: <HomePage />},
+    ]
+  },
+  {
+    element: <UserLayout />,
+    children: [
       {path: "buy", element:<Buy />},
       {path: 'propertyview/:id', element: <PropertyView/>},
+      {path: "wishlist", element: <Wishlist />},
     ]
   },
   {

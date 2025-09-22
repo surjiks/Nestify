@@ -290,29 +290,42 @@ user.post('/Wishlist/:id',UserCheck,async(req,res)=>{
     const result = await Wishlist.findOne({UserName:UserName, Property:PropertyId})
     if(result){
         await Wishlist.deleteOne({UserName:UserName, Property:PropertyId})
-        res.status(200).json({msg:"Wishlist removed"})
+        res.status(200).json({msg:"Wishlist removed", status: "removed"})
     }else{
         const newWishlist = new Wishlist({
             UserName:UserName,
             Property:PropertyId
         })
         await newWishlist.save();
-        res.status(200).json({msg:"Wishlist Added"})
+        res.status(200).json({msg:"Wishlist Added", status: "added"})
     }
     }catch(error){
         console.log(error);
     }
 })
 
+user.get('/WishlistStatus/:id', UserCheck, async (req, res) => {
+  try {
+    const UserName = req.name
+    const PropertyId = req.params.id
+    const result = await Wishlist.findOne({ UserName, Property: PropertyId })
+    res.status(200).json({ isWishlisted: !!result }) // true if exists !!result converts result to a boolean:If a document exists → true.If not → false.
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ error: 'Server error' })
+  }
+})
+
+
 //View Wishlist
 user.get('/Wishlist',UserCheck,async(req,res)=>{
     try{
     const UserName = req.name
-    const wishlist = await Wishlist.find({UserName:UserName},{_id:0,__v:0,UserName:0})
-    .populate({path:"Property",select: "Category Type Description Price Location -_id"});
+    const wishlist = await Wishlist.find({UserName:UserName})
+    .populate("Property");
     if(wishlist.length==0){
         
-        res.status(200).json({msg:"Your wishlist is Empty"})
+        res.status(404).json({msg:"Your wishlist is Empty"})
     
     }else{
         res.status(200).json(wishlist)
