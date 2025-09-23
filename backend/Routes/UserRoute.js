@@ -14,10 +14,23 @@ user.post("/SellProperty",UserCheck,upload.fields([{name: "PropertyImage"},{name
     try{
     const UserName = req.name;
     const {Category,Type,BHK,Bathrooms,PArea,ProjectName,Title,Description,Price,Phone,AadharNo,TaxNo,Area,City,State,Pincode} = req.body
-    const result = await AddProperty.findOne({userName:UserName, status:{$in:["Active","Pending"]}})
+    const result = await AddProperty.findOne({userName: UserName,}).sort({ Date: -1 });
     if(result){
-        if(result.status == "Pending" || result.status == "Active")
+        if(result.status == "Pending" || result.status == "Active"){
         res.status(404).json({msg:"You can add a new property only after the current listing has expired."})
+        }
+         if (result.status === "Expired" && result.DueDate) {
+          const expiryDate = new Date(result.DueDate); // expiry date (set by admin)
+          const oneMonthAfterExpiry = new Date(expiryDate);
+          oneMonthAfterExpiry.setMonth(oneMonthAfterExpiry.getMonth() + 1);
+
+          if (new Date() < oneMonthAfterExpiry) {
+            return res.status(404).json({
+              msg: `You can add a new property only after ${oneMonthAfterExpiry.toDateString()}.`,
+            });
+          }
+        }
+
     }else{
         
         let propertyImage = null;
@@ -133,7 +146,7 @@ user.delete('/DeleteProperty/:id',UserCheck,async(req,res)=>{
 })
 
 //buy property
-user.get('/BuyProperty',UserCheck,async(req,res)=>{
+user.get('/BuyProperty',async(req,res)=>{
     try{
     const properties = await AddProperty.find({status:"Active"})
     if(properties.length==0){
@@ -200,7 +213,6 @@ user.get('/ViewEnquiry',UserCheck,async(req,res)=>{
         
        }else{
         res.status(200).json(result)
-        console.log(result);
        }
     } catch (error) {
         console.log(error);
@@ -236,7 +248,7 @@ user.get('/getProperty/:id',UserCheck,async(req,res)=>{
 })
 
 //premium
-user.get('/dummyPayment/:id',UserCheck,async(req,res)=>{
+user.post('/dummyPayment/:id',UserCheck,async(req,res)=>{
     try{
     const UserName = req.name
     const PropertyId = req.params.id
@@ -254,7 +266,7 @@ user.get('/dummyPayment/:id',UserCheck,async(req,res)=>{
         res.status(400).json({msg:"Wrong Plan"})
     }
 
-    const Property = await AddProperty.findOne({_id:PropertyId, userName:UserName,status:"Active", Plan:"Free"})
+    const Property = await AddProperty.findOne({_id:PropertyId, userName:UserName,status:"Expired", Plan:"Free"})
     if(!Property){
         res.status(400).json({msg:"Property not found or Your already take premium"})
     }else{
@@ -264,6 +276,7 @@ user.get('/dummyPayment/:id',UserCheck,async(req,res)=>{
         Property.DueDate = newDueDate;
         Property.Premium = true;
         Property.Plan = selectedPlan;
+        Property.status = "Active";
 
         await Property.save();
         
@@ -357,18 +370,18 @@ user.post('/Feedback',UserCheck,async(req,res)=>{
 })
 
 //chat
-user.post('/Chat/:id',UserCheck,async(req,res)=>{
-    const PropertyId = req.params.id
-    const result = await AddProperty.findOne({_id:PropertyId, status:"Active"})
+// user.post('/Chat/:id',UserCheck,async(req,res)=>{
+//     const PropertyId = req.params.id
+//     const result = await AddProperty.findOne({_id:PropertyId, status:"Active"})
 
-    if(!result){
-        res.status(400).json({msg:"Property not Found"})
-    }else{
-    res.status(200).json({msg:`https://web.whatsapp.com/send?phone=${result.Phone}&text=hello`})
-    console.log(`https://web.whatsapp.com/send?phone=${result.Phone}&text=hello`);
+//     if(!result){
+//         res.status(400).json({msg:"Property not Found"})
+//     }else{
+//     res.status(200).json({msg:`https://web.whatsapp.com/send?phone=${result.Phone}&text=hello`})
+//     console.log(`https://web.whatsapp.com/send?phone=${result.Phone}&text=hello`);
     
-    }
-})
+//     }
+// })
 
 //filter
 user.get('/Filter',UserCheck,async(req,res)=>{
@@ -380,13 +393,14 @@ user.get('/Filter',UserCheck,async(req,res)=>{
     if(type) filter.Type = type
     if(price) filter.Price = price  
 
-    const result = await AddProperty.find(filter,{PropertyImage:0,AadharCard:0,TaxReciept:0})
+    const result = await AddProperty.find(filter)
     if(result.length == 0){
          console.log("No active properties found");
         return res.status(404).json({ msg: "No active properties found" });
     }
     res.status(200).json(result);
     console.log(result);
+    
 
     }catch(error){
         console.log(error);

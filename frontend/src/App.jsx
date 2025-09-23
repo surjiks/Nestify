@@ -18,50 +18,78 @@ import UpdateProfile from './assets/pages/user/UpdateProfile'
 import PropertyView from './assets/pages/user/PropertyView'
 import Wishlist from './assets/pages/user/wishlist'
 import UserLayout from './layouts/UserLayout'
+import SearchResult from './assets/pages/user/SearchResult'
+import Enquiry from './assets/pages/user/Enquiry'
+import TermsAndConditions from './assets/pages/user/TermsAndConditions'
+import RenewPlan from './assets/pages/user/RenewPlan'
+import { MyPropertyProvider } from './context/MyPropertyContext'
+import AboutUs from './assets/pages/user/AboutUs'
+import LandingPage from './assets/pages/user/LandingPage'
 
 
 export const router = createBrowserRouter([
   {
     element: <AuthLayout />,
     children: [
-      {index:true, element:<Login />},   // "/"
+      {index:true, element:<LandingPage />},   // "/"
       {path: "signup", element: <Signup />},  // "/sign-up"
       {path: "login", element: <Login />}
     ]
   },
   {
-    element: <MainLayout />,
-    children: [
-      {path: "homepage", element: <HomePage />},
-    ]
-  },
+  element: <MainLayout />,
+  children: [
+    {
+      element: <Protected />,
+      children: [
+        { path: "homepage", element: <HomePage /> },,
+        { path: "termsandcondition", element: <TermsAndConditions /> },
+        { path: "aboutus", element: <AboutUs /> }
+      ]
+    }
+  ]
+},
   {
     element: <UserLayout />,
     children: [
-      {path: "buy", element:<Buy />},
-      {path: 'propertyview/:id', element: <PropertyView/>},
-      {path: "wishlist", element: <Wishlist />},
+      {
+      element: <Protected />,
+      children: [
+        {path: "buy", element:<Buy />},
+        {path: 'propertyview/:id', element: <PropertyView/>},
+        {path: "wishlist", element: <Wishlist />},
+        {path: "filter", element: <SearchResult />},
+      ]
+    }
     ]
   },
   {
-    element: (
-          <Protected role='admin'>
-            <AdminLayout />
-          </Protected>
-        ),
+    element:<AdminLayout />,
     children: [
+      {
+        element: <Protected role='admin'/>,
+        children: [
       {path: "admin", element: <AdminDashboard />},
       {path: "verifyproperty/:id", element: <VerifyProperty />}
+      ]
+      }
     ]
   },
-  {
+  { 
     element: <DashboardLayout />,
     children: [
+      {
+      element: <Protected />,
+      children: [
       {path: "sell", element: <Sell />},
-      {path: "dashboard", element: <Dashboard />},
-      {path: "myproperty", element: <MyProperty />},
+      {path: "dashboard", element: <MyPropertyProvider><Dashboard /></MyPropertyProvider>},
+      {path: "myproperty", element: <MyPropertyProvider><MyProperty /></MyPropertyProvider>},
       {path: "updateproperty/:id", element: <UpdateProperty />},
-      {path: "updateprofile", element: <UpdateProfile />},
+      {path: "updateprofile", element:<UpdateProfile />},
+      {path: "enquiry", element: <MyPropertyProvider><Enquiry /></MyPropertyProvider>},
+      {path: "renewplan/:id", element: <RenewPlan />},
+      ]
+    }
     ]
   }
 ])

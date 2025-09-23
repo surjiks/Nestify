@@ -27,11 +27,11 @@ const ViewProperties = () => {
       title="Properties"
       columns={["Title", "area","status", "userName"]}
       data={property}
-      renderAction={(details) => (
-        <ActionButton 
-            action="View"
-        />
-      )}
+      // renderAction={(details) => (
+      //   <ActionButton 
+      //       action="View"
+      //   />
+      // )}
     />
   )
 }

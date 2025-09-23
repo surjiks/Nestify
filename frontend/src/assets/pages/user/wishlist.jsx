@@ -1,36 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import img from "../../images/wishlist.webp";
 import PropertyCard from "../../components/user/PropertyCard";
 import { Link } from "react-router-dom";
+import { useWishlist } from "../../../context/WishlistContext";
 
-const wishlist = () => {
-  const [wishlist, setWishlist] = useState([]);
-
-  useEffect(() => {
-    const fetchWishlist = async () => {
-      try {
-        const res = await fetch("/api/Wishlist");
-        const data = await res.json();
-        if (!res.ok) {
-          throw new Error("Wishlist not Found");
-        }
-        setWishlist(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchWishlist();
-  }, []);
-
-  const handleToggleWishlist = (propertyId, status, propertyData) => {
-    if (status === "removed") {
-      setWishlist((prev) =>
-        prev.filter((item) => item.Property._id !== propertyId)
-      );
-    } else if (status === "added") {
-      setWishlist((prev) => [...prev, { Property: propertyData }]);
-    }
-  };
+const Wishlist = () => {
+  const { wishlist, handleToggleWishlist } = useWishlist();
 
   return (
     <div className="grid md:grid-cols-5 grid-cols-1 justify-around gap-5 p-6 w-[80%] ml-[260px]">
@@ -50,7 +25,8 @@ const wishlist = () => {
             Like ads and share <br />
             them with the world
           </p>
-          <Link to={'/buy'}
+          <Link
+            to={"/buy"}
             className="text-2xl text-[#095B15] w-[300px] p-2 h-[50px] text-center border-2 border-[#095B15] rounded-md mt-3"
           >
             Discover
@@ -61,4 +37,4 @@ const wishlist = () => {
   );
 };
 
-export default wishlist;
+export default Wishlist;

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useWishlist } from '../../../context/WishlistContext'
 
-const PropertyCard = ({property, handleToggleWishlist}) => {
+const PropertyCard = ({property}) => {
 
   const [isWishlisted,setIsWishlisted] = useState(false)
+  const {handleToggleWishlist} = useWishlist()
 
     useEffect(() => {
     const checkWishlist = async () => {
@@ -11,7 +13,7 @@ const PropertyCard = ({property, handleToggleWishlist}) => {
         const res = await fetch(`/api/WishlistStatus/${property._id}`)
         const data = await res.json()
         if (res.ok) {
-          setIsWishlisted(data.isWishlisted)
+          setIsWishlisted(data.isWishlisted) //from backen get boolean result , if property  in wishlist true else false
         }
       } catch (error) {
         console.error('Error fetching wishlist status:', error)
@@ -36,9 +38,9 @@ const PropertyCard = ({property, handleToggleWishlist}) => {
         }else if(data.status == "removed"){
           setIsWishlisted(false)
         }
-        if(handleToggleWishlist){
+        
           handleToggleWishlist(property._id, data.status, property)
-        }
+       
       }
     } catch (error) {
       console.error("Error toggling wishlist:", error)

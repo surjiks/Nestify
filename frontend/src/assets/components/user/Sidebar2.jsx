@@ -42,7 +42,7 @@ const Sidebar2 = () => {
             className="fa-solid fa-book-atlas"
             style={{ color: "#095B15" }}
           ></i>
-          <a href="enquiry.html">Enquiries</a>
+          <Link to={'enquiry'}>Enquiries</Link>
         </div>
         <div className="border-b-1 mt-2 mb-8"></div>
         <span className="text-sm text-black/70">MANAGE PROFILE</span>

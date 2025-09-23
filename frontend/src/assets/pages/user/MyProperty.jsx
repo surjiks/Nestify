@@ -1,53 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { useMyProperty } from "../../../context/MyPropertyContext";
 
 const MyProperty = () => {
-  const [myProperty, setMyProperty] = useState([]);
-  const { profile } = useAuth();
-  const [error, setError] = useState("");
+  const {myProperty, error, formatDate, getStatusBg} = useMyProperty();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const fetchMyProperty = async () => {
-      try {
-        const res = await fetch(
-          `/api/myProperty?UserName=${profile?.userName}`
-        );
-        if (!res.ok) {
-          const errorData = await res.json();
-          throw new Error(errorData.msg || "You have no listing");
-        }
-        const data = await res.json();
-        
-        setMyProperty(data);
-      } catch (error) {
-        setError(error.message);
-      }
-    };
-    if (profile?.userName) {
-      fetchMyProperty();
-    }
-  }, [profile?.userName]);
-
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString();
-  };
-
-  const getStatusBg = (status) => {
-    switch (status) {
-      case "Active":
-        return "bg-[#28a745]";
-      case "Pending":
-        return "bg-gray-500";
-      case "Expired":
-        return "bg-[#b02a37]";
-      case "Rejected":
-        return "bg-[#dc3545]";
-    }
-  };
-
   return (
     <div className="md:flex grid">
       <div className="m-auto w-[60%] space-y-15">
@@ -100,7 +58,7 @@ const MyProperty = () => {
                     </div>
                     {property.status == "Expired" && (
                       <div className="m-auto">
-                        <button className="bg-amber-300 text-lg p-1 w-30 text-center rounded-lg">
+                        <button onClick={()=>navigate(`/renewplan/${property._id}`)} className="bg-amber-300 text-lg p-1 w-30 text-center rounded-lg">
                           Renew Now
                         </button>
                       </div>

@@ -84,7 +84,7 @@ const Sell = () => {
         throw new Error(errorData.msg || "Failed to Add property")
       }
       alert("Property added Sucessfully, wait for admin approval!")
-      navigate('/myproperties')
+      navigate('/myproperty')
     } catch (error) {
         alert( error.message);
         navigate('/homepage')

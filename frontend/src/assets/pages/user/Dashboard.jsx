@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { useAuth } from '../../../context/AuthContext'
 import profilepic from '../../images/profile1.png'
 import { Link } from 'react-router-dom'
+import { useMyProperty } from '../../../context/MyPropertyContext'
 
 const Dashboard = () => {
     const [userProfile, setUserProfile] = useState([])
     const { profile } = useAuth();
+    const {myProperty, enquiry} = useMyProperty()
 
     useEffect(()=>{
         const fetchUserprofile = async() => {
@@ -57,10 +59,10 @@ const Dashboard = () => {
 
         <div className="md:h-[200px] mt-10 md:flex justify-center items-center space-x-15 ">
            <div className="outline h-[150px] w-[300px] rounded-lg flex flex-col justify-center items-center bg-gradient-to-br from-[#85FF74] to-[#89EDF4]">
-                <i className="fa-solid fa-house-chimney text-4xl">&nbsp;3</i><span className="text-2xl">Total Properties</span>
+                <i className="fa-solid fa-house-chimney text-4xl">&nbsp;{myProperty.length}</i><span className="text-2xl">Total Properties</span>
            </div> 
            <div className="outline h-[150px] w-[300px] rounded-lg flex flex-col justify-center items-center bg-gradient-to-br from-[#85FF74] to-[#89EDF4]">
-                <i className="fa-solid fa-comment text-4xl">&nbsp;5</i><span className="text-2xl">Total Enquiries</span>
+                <i className="fa-solid fa-comment text-4xl">&nbsp;{enquiry.length}</i><span className="text-2xl">Total Enquiries</span>
            </div> 
         </div>
     <div className="text-center text-xl mt-10 max-md:hidden"><Link to={'/myproperty'}>View More</Link></div>

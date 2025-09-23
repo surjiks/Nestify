@@ -3,9 +3,10 @@ import Sidebar from "../../components/user/Sidebar";
 import PropertyCard from "../../components/user/PropertyCard";
 import { useAuth } from "../../../context/AuthContext";
 import { useParams, useSearchParams } from "react-router-dom";
+import { useProperty } from "../../../context/PropertyContext";
 
 const Buy = () => {
-  const { properties, propLoading } = useAuth();
+  const { properties, propLoading } = useProperty();
   const [searchParams] = useSearchParams();
 
   const category = searchParams.get("category");
@@ -20,9 +21,7 @@ const Buy = () => {
 
   return (
     <div className="flex">
-      
-      {/* <span className="text-xl font-bold">Fresh Recomendation</span>
-            <span className="text-xl font-bold">-----FEATURED-----</span> */}
+
       {propLoading ? (
         <h1>Loading...</h1>
       ) : filterProperties.length === 0 ? (

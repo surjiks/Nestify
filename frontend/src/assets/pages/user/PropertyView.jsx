@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 const PropertyView = () => {
-    const { id } = useParams()
-    const [propertyDetails,setPropertyDetails] = useState([])
+
+        const [name,setName] = useState('')
+        const [phone,setPhone] = useState('')
+        const [intrest,setIntrest] = useState('')
+        const { id } = useParams()
+        const [propertyDetails,setPropertyDetails] = useState([])
+
 
     useEffect(()=>{
         const getProeprty = async() =>{
@@ -20,6 +26,32 @@ const PropertyView = () => {
         }
         getProeprty()
     },[])
+
+    const handleSubmit = async(e) =>{
+
+        try {
+            const res = await fetch('/api/ViewAndEnquiry',{
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    'Content-Type':'application/json',
+                },
+                body: JSON.stringify({
+                    PropertyId : id,
+                    FullName : name,
+                    PhoneNumber : phone, 
+                    Intrest : intrest
+                }),
+            })
+            const data = await res.json()
+            if(!res.ok){
+                throw new Error(data.msg || "Failed to send enquiry")
+            }
+            alert(data.msg)
+        } catch (error) {
+            alert(error.message)
+        }
+    }
   return (
     <div class="md:flex grid">
      
@@ -50,23 +82,36 @@ const PropertyView = () => {
             <div class="text-lg"><span class="font-bold">Landmark : </span></div>
         </div>
      </div>
-
+        <form onSubmit={handleSubmit}>
      <div class="grid md:fixed md:top-60 md:right-30 bg-[#8BD78B] space-y-5 p-5 md:w-90 w-full h-90 text-center rounded-lg shadow-2xl absolute top-550">
         <span class="font-bold text-2xl">Enquire Now</span>
-        <input class="bg-white h-10 pl-4 font-bold focus:outline-none rounded-md" type="text" placeholder="Enter Your Full Name"/>
-        <input class="bg-white h-10 pl-4 font-bold focus:outline-none rounded-md" type="number" placeholder="Enter Phone Number"/>
-        <select class="bg-white h-10 pl-4 font-bold focus:outline-none rounded-md" name="" id="">
-            <option value="">Please select Your Intrest</option>
-            <option value="">Site Visit</option>
-            <option value="">Intrested to Buy</option>
-            <option value="">Shedule a visit</option>
-            <option value="">Price Negotitate</option>
+        <input class="bg-white h-10 pl-4 font-bold focus:outline-none rounded-md" value={name} onChange={(e)=>setName(e.target.value)} type="text" placeholder="Enter Your Full Name" required/>
+        <input class="bg-white h-10 pl-4 font-bold focus:outline-none rounded-md" value={phone} onChange={(e)=>setPhone(e.target.value)} type="number" placeholder="Enter Phone Number" required/>
+        <select class="bg-white h-10 pl-4 font-bold focus:outline-none rounded-md" value={intrest} onChange={(e)=>setIntrest(e.target.value)} required>
+            <option value="" disabled selected hidden>
+                Select an option
+            </option>
+            <option value="Site Visit">Site Visit</option>
+            <option value="Intrested to Buy">Intrested to Buy</option>
+            <option value="Shedule a visit">Shedule a visit</option>
+            <option value="Price Negotitate">Price Negotitate</option>
         </select>
-        <input class="bg-[#095B15] w-20 ml-28 text-white rounded-lg" type="submit"/>
+        <button class="bg-[#095B15] w-20 ml-28 text-white rounded-lg" type="submit">Submit </button>
      </div>
-     <div class="md:fixed md:right-55 md:top-160 h-12 w-40 flex items-center justify-center text-xl border-2 border-green-900 absolute top-535 right-25">
-        <a href="chat.html">Chat With Seller</a>
-     </div>
+     </form>
+    <div
+  className="md:fixed md:right-55 md:top-160 h-12 w-40 flex items-center justify-center text-xl border-2 border-green-900 absolute top-535 right-25 cursor-pointer"
+  onClick={() => {
+    if (propertyDetails.Phone) {
+      const whatsappLink = `https://web.whatsapp.com/send?phone=91${propertyDetails.Phone}&text=Hello`;
+      window.open(whatsappLink, "_blank");
+    } else {
+      alert("Seller phone number not available");
+    }
+  }}
+>
+  Chat With Seller
+</div>
 </div>
   )
 }

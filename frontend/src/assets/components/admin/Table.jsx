@@ -18,11 +18,11 @@ const Table = ({ title, columns, data, renderAction, Error }) => {
           {data.map((details) => (
             <tr key={details._id} className="border-b border-black/30">
               {columns.map((col) => (
-                <td key={`${details._id}-${col}`} className="py-3">
+                <td key={`${details._id}-${col}`} className="py-3">  {/* Each cell also gets a unique key (combining _id and column name) → "1-name", "1-age".  */}                            
                   {details[col]}
                 </td>
               ))}
-              <td>{renderAction(details)}</td>
+              <td>{renderAction&& renderAction(details)}</td>
             </tr>
           ))}
         </tbody>

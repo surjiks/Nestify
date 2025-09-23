@@ -4,6 +4,7 @@ const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
 
+    //fetch profile 
     const [profile,setProfile] = useState(null);
     const [loading,setLoading] = useState(true);
 
@@ -22,26 +23,6 @@ export function AuthProvider({ children }) {
     },[]);
 
     useEffect(()=> {fetchProfile();},[fetchProfile]);
-
-
-    const [properties,setProperties] = useState([]);
-    const [propLoading,setPropLoading] = useState(true)
-
-            const fetchProperties = useCallback(async() => {
-                try {
-                    const res = await fetch('/api/BuyProperty')
-                    if(!res.ok){
-                        throw new Error(data.msg || "Something Went Wrong !")
-                    }
-                    const data = await res.json();
-                setProperties(data)
-                } catch (error) {
-                    console.log(error.message);
-                }finally{
-                    setPropLoading(false)
-                }
-            },[])
-            useEffect(() => { fetchProperties(); }, [fetchProperties]);
 
 
     const login = useCallback(async(username,password)=>{
@@ -75,15 +56,12 @@ export function AuthProvider({ children }) {
 
   const value = useMemo(()=>({
     profile,
-    properties,
     loading,
-    propLoading,
     login,
     logout,
     refresh: fetchProfile,
-    refreshProperties: fetchProperties,
     isAdmin: profile?.userRole === "admin",
-  }),[profile, loading, propLoading, login, logout, fetchProfile, fetchProperties, properties]);
+  }),[profile, loading, login, logout, fetchProfile]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 

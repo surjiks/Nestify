@@ -1,32 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import PropertyCard from './PropertyCard'
 import { useAuth } from '../../../context/AuthContext';
+import { useProperty } from '../../../context/PropertyContext';
 
 const PropertyGrid = ({isHome=true}) => {
     // const [properties,setProperties] = useState([]);
     
-    const {properties, propLoading} = useAuth()
+    const {properties, propLoading} = useProperty()
 
     const propertyList = isHome ? properties.slice(0,4) : properties;
-
-    // useEffect(()=>{
-    //     const fetchProperties = async() => {
-    //         try {
-    //             const res = await fetch('/api/BuyProperty')
-    //             const data = await res.json();
-                
-    //             if(!res.ok){
-    //                 throw new Error(data.msg || "Something Went Wrong !")
-    //             }
-    //         setProperties(data)
-    //         } catch (error) {
-    //             console.log(error.message);
-    //         }finally{
-    //             setLoading(false);
-    //         }
-    //     }
-    //     fetchProperties()
-    // },[])
+    
 
   return (
     <>

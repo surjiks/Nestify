@@ -40,7 +40,7 @@ const Signup = () => {
             const errorData = await res.json();
             throw new Error(errorData.msg || 'Signup Failed');
         }
-         alert("Sign Up Sucessfully , Now you can login")
+         alert("Sign Up Sucessfully!")
          navigate('/login')
         } catch (error) {
             setError(error.message || 'Signup Failed: Please Try Again!')
