@@ -65,6 +65,7 @@ const Viewuser = () => {
               <p><strong>Name:</strong> {selectedUser.userName}</p>
               <p><strong>Email:</strong> {selectedUser.email}</p>
               <p><strong>ID:</strong> {selectedUser._id}</p>
+              <p><strong>Membership:</strong> {selectedUser.membership ? "Active" : "Inactive"}</p>
 
               <h2 className="text-xl font-bold mb-3 text-center">Properties</h2>
 

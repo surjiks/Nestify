@@ -15,17 +15,25 @@ const Table = ({ title, columns, data, renderAction, Error }) => {
           </tr>
         </thead>
         <tbody>
-          {data.map((details) => (
-            <tr key={details._id} className="border-b border-black/30">
-              {columns.map((col) => (
-                <td key={`${details._id}-${col}`} className="py-3">  {/* Each cell also gets a unique key (combining _id and column name) → "1-name", "1-age".  */}                            
-                  {details[col]}
-                </td>
-              ))}
-              <td>{renderAction&& renderAction(details)}</td>
-            </tr>
-          ))}
-        </tbody>
+  {Array.isArray(data) && data.length > 0 ? (
+    data.map((details) => (
+      <tr key={details._id} className="border-b border-black/30">
+        {columns.map((col) => (
+          <td key={`${details._id}-${col}`} className="py-3">
+            {details[col]}
+          </td>
+        ))}
+        <td>{renderAction && renderAction(details)}</td>
+      </tr>
+    ))
+  ) : (
+    <tr>
+      <td colSpan={columns.length + 1} className="py-5 text-gray-500">
+        No data available
+      </td>
+    </tr>
+  )}
+</tbody>
       </table>
     </div>
   );

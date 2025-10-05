@@ -124,12 +124,12 @@ const UpdateProfile = () => {
           </div>
 
           <div className="w-[200px] flex flex-col justify-center items-center">
-            <img
+            {/* <img
               className="h-[140px] w-[140px] rounded-full outline"
               src="image/user.jpeg"
               alt=""
             />
-            <p className="text-sm">*Maximum file size : 500KB</p>
+            <p className="text-sm">*Maximum file size : 500KB</p> */}
             <div className="grid  w-[80%] text-center font-bold space-y-5 mt-10 ">
               <button
               type="submit"

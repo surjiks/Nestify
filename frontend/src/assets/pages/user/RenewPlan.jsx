@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Navigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 
 const RenewPlanDesign = () => {
   const [plan,setPlan] = useState('');
   const { id } = useParams();
+  const navigate = useNavigate()
 
   const handleSubmit = async(e) => {
     e.preventDefault()
@@ -24,7 +25,7 @@ const RenewPlanDesign = () => {
     }
     setPlan(data)
     alert(data.msg)
-    Navigate('/myproperty')
+    navigate('/myproperty')
    } catch (error) {
     alert(error.message)
    }

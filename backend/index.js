@@ -19,7 +19,7 @@ app.use(cors({
     credentials:true
 }))
 
-mongoose.connect("mongodb://localhost:27017/NESTIFY").then(()=>{
+mongoose.connect("mongodb://mongodb:27017/NESTIFY").then(()=>{
     console.log("MongoDB connected Sucessfully to NESTIFY");
 })
 .catch((error)=>{

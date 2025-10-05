@@ -26,6 +26,7 @@ import { MyPropertyProvider } from './context/MyPropertyContext'
 import AboutUs from './assets/pages/user/AboutUs'
 import LandingPage from './assets/pages/user/LandingPage'
 import MembershipPayment from './assets/pages/user/MembershipPayment'
+import ViewProperty from './assets/pages/admin/ViewProperty'
 
 
 export const router = createBrowserRouter([
@@ -71,7 +72,8 @@ export const router = createBrowserRouter([
         element: <Protected role='admin'/>,
         children: [
       {path: "admin", element: <AdminDashboard />},
-      {path: "verifyproperty/:id", element: <VerifyProperty />}
+      {path: "verifyproperty/:id", element: <VerifyProperty />},
+      {path: "viewproperty/:id", element: <ViewProperty />},
       ]
       }
     ]
