@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { AddProperty,Enquiry,Premium, Wishlist, Feedback} from "../Models/model.js";
+import { AddProperty,Enquiry,Premium, Wishlist, Feedback, signup} from "../Models/model.js";
 import upload from "../Middleware/upload.js";
 import UserCheck from "../Middleware/user.js";
 
@@ -14,10 +14,22 @@ user.post("/SellProperty",UserCheck,upload.fields([{name: "PropertyImage"},{name
     try{
     const UserName = req.name;
     const {Category,Type,BHK,Bathrooms,PArea,ProjectName,Title,Description,Price,Phone,AadharNo,TaxNo,Area,City,State,Pincode} = req.body
-    const result = await AddProperty.findOne({userName:UserName, status:{$in:["Active","Pending"]}})
-    if(result){
-        if(result.status == "Pending" || result.status == "Active")
+    const result = await AddProperty.findOne({userName: UserName,}).sort({ Date: -1 });
+    const profile = await signup.findOne({userName: UserName})
+    if(!profile.membership && result){
+        if(result.status == "Pending" || result.status == "Active"){
         res.status(404).json({msg:"You can add a new property only after the current listing has expired."})
+        }
+         if ((result.status === "Expired" || result.status === "Sold") && result.DueDate) {
+          const expiryDate = new Date(result.DueDate); // expiry date (set by admin)
+          const oneMonthAfterExpiry = new Date(expiryDate);
+          oneMonthAfterExpiry.setMonth(oneMonthAfterExpiry.getMonth() + 1);
+
+          if (new Date() < oneMonthAfterExpiry) {
+            return res.status(404).json({msg: `You can add a new property only after ${oneMonthAfterExpiry.toDateString()}. or take Membership`,});
+          }
+        }
+
     }else{
         
         let propertyImage = null;
@@ -74,25 +86,28 @@ user.put('/EditProperty/:id',UserCheck,async(req,res)=>{
     try{
     const UserName = req.name
     const PropertyId = req.params.id
-    const {newCategory,newType,newBHK,newBathrooms,newProjectArea,newProjectName,newTitle,newDescription,newPrice} = req.body
+
+    const {BHK,Bathrooms,PArea,ProjectName,Title,Description,area,city,state,pincode,Price} = req.body
     console.log(UserName,PropertyId);
     const result = await AddProperty.findOne({_id:PropertyId,userName:UserName})
     console.log(result);
     if(!result){
-        res.status(200).json({msg:"Property not found"})
+        res.status(404).json({msg:"Property not found"})
     }else{
     
     if(result.status == "Pending" || result.status == "Active"){
     
-        result.Category = newCategory,
-        result.Type = newType,
-        result.BHK = newBHK,
-        result.Bathrooms = newBathrooms,
-        result.PArea = newProjectArea,
-        result.ProjectName = newProjectName,
-        result.Title = newTitle,
-        result.Description = newDescription,
-        result.Price = newPrice
+        result.BHK = BHK,
+        result.Bathrooms = Bathrooms,
+        result.PArea = PArea,
+        result.ProjectName = ProjectName,
+        result.Title = Title,
+        result.Description = Description,
+        result.Price = Price,
+        result.area = area,
+        result.city = city,
+        result.state = state,
+        result.pincode = pincode
 
         await result.save()
         res.status(200).json({msg:"Property Updated Sucessfully"})
@@ -130,20 +145,35 @@ user.delete('/DeleteProperty/:id',UserCheck,async(req,res)=>{
 })
 
 //buy property
-user.get('/BuyProperty',UserCheck,async(req,res)=>{
+user.get('/BuyProperty',async(req,res)=>{
     try{
-    const properties = await AddProperty.find({status:"Active"},{PropertyImage:0,AadharCard:0,TaxReciept:0,_id:0,__v:0})
+    const properties = await AddProperty.find({status:"Active"})
     if(properties.length==0){
         res.status(404).json({msg:"No properties Listed"})
     }
-    const HousesAndVillas = properties.filter(value=>value.Category=="house/apartment")
-    const LandAndPlots = properties.filter(value=>value.Category=="land/plot")
-    res.status(200).json({HousesAndVillas,LandAndPlots})
-    console.log(HousesAndVillas,LandAndPlots);
+    // const HousesAndVillas = properties.filter(value=>value.Category=="house/apartment")
+    // const LandAndPlots = properties.filter(value=>value.Category=="land/plot")
+    res.status(200).json(properties)
     }catch(err){
         console.log(err);
     }       
 })
+
+// Get single property by ID
+user.get('/BuyProperty/:id', UserCheck, async (req, res) => {
+  try {
+    const propertyId = req.params.id;
+    const property = await AddProperty.findById(propertyId);
+    if (!property) {
+      return res.status(404).json({ msg: "Property not found" });
+    }
+    res.status(200).json(property);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ msg: "Something went wrong" });
+  }
+});
+
 
 //View selected property and send enquiry
 user.post('/ViewAndEnquiry',UserCheck,async(req,res)=>{
@@ -182,7 +212,6 @@ user.get('/ViewEnquiry',UserCheck,async(req,res)=>{
         
        }else{
         res.status(200).json(result)
-        console.log(result);
        }
     } catch (error) {
         console.log(error);
@@ -192,22 +221,55 @@ user.get('/ViewEnquiry',UserCheck,async(req,res)=>{
 
 //my property
 user.get('/myProperty',UserCheck,async(req,res)=>{
-    const UserName = req.name
+    const {UserName} = req.query
+    console.log(UserName);
     
     const date = new Date();
     await AddProperty.updateMany({userName:UserName, DueDate:{$lt:date}} , {$set: {status:"Expired"}})
-    const result = await AddProperty.find({userName:UserName},{PropertyImage:0,AadharCard:0,TaxReciept:0,_id:0,__v:0})
+    const result = await AddProperty.find({userName:UserName})
+    
     if(result.length==0){
-        res.status(404).json({msg:"You have no listing"})
-        console.log("You have no listing");   
+        res.status(404).json({msg:"You have no listing"})  
     }else{
         res.status(200).json(result)
-         console.log(result);
+    }
+})
+
+//my property
+user.put('/markSold/:id', UserCheck, async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const result = await AddProperty.updateOne(
+      { _id: id },
+      { $set: { status: "Sold" } }
+    );
+
+    if (result.modifiedCount === 0) {
+      return res.status(404).json({ message: "Property not found or already sold" });
+    }
+
+    res.status(200).json({ message: "Property marked as Sold successfully" });
+  } catch (error) {
+    console.error("Error updating property:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+
+//get proeprty
+user.get('/getProperty/:id',UserCheck,async(req,res)=>{
+    const {id} = req.params
+    const result = await AddProperty.findOne({_id:id})
+    if(!result){
+        res.status(404).json({msg:"Property Not Found"})
+    }else{
+        res.status(200).json(result)
     }
 })
 
 //premium
-user.get('/dummyPayment/:id',UserCheck,async(req,res)=>{
+user.post('/dummyPayment/:id',UserCheck,async(req,res)=>{
     try{
     const UserName = req.name
     const PropertyId = req.params.id
@@ -225,7 +287,7 @@ user.get('/dummyPayment/:id',UserCheck,async(req,res)=>{
         res.status(400).json({msg:"Wrong Plan"})
     }
 
-    const Property = await AddProperty.findOne({_id:PropertyId, userName:UserName,status:"Active", Plan:"Free"})
+    const Property = await AddProperty.findOne({_id:PropertyId, userName:UserName,status:"Expired", Plan:"Free"})
     if(!Property){
         res.status(400).json({msg:"Property not found or Your already take premium"})
     }else{
@@ -235,6 +297,7 @@ user.get('/dummyPayment/:id',UserCheck,async(req,res)=>{
         Property.DueDate = newDueDate;
         Property.Premium = true;
         Property.Plan = selectedPlan;
+        Property.status = "Active";
 
         await Property.save();
         
@@ -261,29 +324,42 @@ user.post('/Wishlist/:id',UserCheck,async(req,res)=>{
     const result = await Wishlist.findOne({UserName:UserName, Property:PropertyId})
     if(result){
         await Wishlist.deleteOne({UserName:UserName, Property:PropertyId})
-        res.status(200).json({msg:"Wishlist removed"})
+        res.status(200).json({msg:"Wishlist removed", status: "removed"})
     }else{
         const newWishlist = new Wishlist({
             UserName:UserName,
             Property:PropertyId
         })
         await newWishlist.save();
-        res.status(200).json({msg:"Wishlist Added"})
+        res.status(200).json({msg:"Wishlist Added", status: "added"})
     }
     }catch(error){
         console.log(error);
     }
 })
 
+user.get('/WishlistStatus/:id', UserCheck, async (req, res) => {
+  try {
+    const UserName = req.name
+    const PropertyId = req.params.id
+    const result = await Wishlist.findOne({ UserName, Property: PropertyId })
+    res.status(200).json({ isWishlisted: !!result }) // true if exists !!result converts result to a boolean:If a document exists → true.If not → false.
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ error: 'Server error' })
+  }
+})
+
+
 //View Wishlist
 user.get('/Wishlist',UserCheck,async(req,res)=>{
     try{
     const UserName = req.name
-    const wishlist = await Wishlist.find({UserName:UserName},{_id:0,__v:0,UserName:0})
-    .populate({path:"Property",select: "Category Type Description Price Location -_id"});
+    const wishlist = await Wishlist.find({UserName:UserName})
+    .populate("Property");
     if(wishlist.length==0){
         
-        res.status(200).json({msg:"Your wishlist is Empty"})
+        res.status(404).json({msg:"Your wishlist is Empty"})
     
     }else{
         res.status(200).json(wishlist)
@@ -315,18 +391,18 @@ user.post('/Feedback',UserCheck,async(req,res)=>{
 })
 
 //chat
-user.post('/Chat/:id',UserCheck,async(req,res)=>{
-    const PropertyId = req.params.id
-    const result = await AddProperty.findOne({_id:PropertyId, status:"Active"})
+// user.post('/Chat/:id',UserCheck,async(req,res)=>{
+//     const PropertyId = req.params.id
+//     const result = await AddProperty.findOne({_id:PropertyId, status:"Active"})
 
-    if(!result){
-        res.status(400).json({msg:"Property not Found"})
-    }else{
-    res.status(200).json({msg:`https://web.whatsapp.com/send?phone=${result.Phone}&text=hello`})
-    console.log(`https://web.whatsapp.com/send?phone=${result.Phone}&text=hello`);
+//     if(!result){
+//         res.status(400).json({msg:"Property not Found"})
+//     }else{
+//     res.status(200).json({msg:`https://web.whatsapp.com/send?phone=${result.Phone}&text=hello`})
+//     console.log(`https://web.whatsapp.com/send?phone=${result.Phone}&text=hello`);
     
-    }
-})
+//     }
+// })
 
 //filter
 user.get('/Filter',UserCheck,async(req,res)=>{
@@ -338,17 +414,99 @@ user.get('/Filter',UserCheck,async(req,res)=>{
     if(type) filter.Type = type
     if(price) filter.Price = price  
 
-    const result = await AddProperty.find(filter,{PropertyImage:0,AadharCard:0,TaxReciept:0})
+    const result = await AddProperty.find(filter)
     if(result.length == 0){
          console.log("No active properties found");
         return res.status(404).json({ msg: "No active properties found" });
     }
     res.status(200).json(result);
     console.log(result);
+    
 
     }catch(error){
         console.log(error);
     }
     
 })
+
+//view profile
+
+user.get('/ViewProfile',UserCheck,async(req,res)=>{
+    try {
+        const { userName }= req.query
+        
+        const result = await signup.findOne({userName:userName})
+        if(!result){
+            res.status(404).json({msg:"User Not Found"})
+        }
+        if(result.membershipExpiry < new Date()){
+        await signup.updateOne(
+            { userName: userName },
+            { $set: { membership: false } }
+        );
+        }
+
+        const updatedUser = await signup.findOne({ userName: userName });
+        
+        res.status(200).json(updatedUser)
+    } catch (error) {
+        console.log(error); 
+    }
+})
+
+//update profile
+
+user.put('/updateProfile',UserCheck,async(req,res)=>{
+    try {
+        const currentUsername = req.name
+       const {UserName,Email,Phone,Phone2,Address} = req.body
+       const result = await signup.findOneAndUpdate({userName:currentUsername},{
+                $set: {
+                    userName: UserName,
+                    email: Email,
+                    phone: Phone,
+                    phone2: Phone2,
+                    address: Address
+                }
+            },
+            { new: true })
+            if (!result){
+            return res.status(404).json({ msg: "User not found" });
+            }
+             res.status(200).json({ msg: "Profile updated successfully" });
+       
+    } catch (error) {
+        res.status(500).json({ msg: "Something went wrong" });
+    }
+})
+
+user.post('/membership', UserCheck, async (req, res) => {
+  try {
+    const UserName = req.name;
+    const user = await signup.findOne({ userName: UserName });
+
+    if (!user) {
+      return res.status(404).json({ msg: "User not found" });
+    }
+
+    if (user.membership === true && user.membershipExpiry > new Date()) {
+      return res.status(400).json({ msg: "You are already a member" });
+    }
+
+    const expiryDate = new Date();
+    expiryDate.setFullYear(expiryDate.getFullYear() + 1);
+
+    await signup.findOneAndUpdate(
+      { userName: UserName },
+      { $set: { membership: true, membershipExpiry: expiryDate } },
+      { new: true }
+    );
+
+    res.status(200).json({ msg: "Membership activated for 1 year" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ msg: "Server error" });
+  }
+});
+
 export default user

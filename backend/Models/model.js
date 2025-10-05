@@ -5,9 +5,15 @@ const details = new Schema({
     userName:{type:String,unique:true,required:true},
     email:String,
     password:String,
-    userRole:String
-},{
-  versionKey: false   // this removes __v everywhere
+    userRole:String,
+    phone: String,
+    phone2: String,
+    address: String,
+    membership: { 
+        type: Boolean, 
+        default: false
+    },
+    membershipExpiry: { type: Date }
 })
 const signup = model('Sign Up',details) 
 
@@ -21,9 +27,9 @@ const property = new Schema({
     ProjectName:String,
     Title:String,
     Description:String,
-    Price:Number,
-    Phone:Number,
-    AadharNo:Number,
+    Price:String,
+    Phone:String,
+    AadharNo:String,
     TaxNo:String,
         area: String,
         city: String,
@@ -41,6 +47,7 @@ const property = new Schema({
     Premium:{type:Boolean, default: false},
     Plan:{type:String, default: "Free"}
 })
+
 const AddProperty = model('Property',property)
 
 //Enquiry

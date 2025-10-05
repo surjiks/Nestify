@@ -1,0 +1,35 @@
+import React, { useEffect, useState } from 'react'
+import PropertyCard from './PropertyCard'
+import { useAuth } from '../../../context/AuthContext';
+import { useProperty } from '../../../context/PropertyContext';
+
+const PropertyGrid = ({isHome=true}) => {
+    // const [properties,setProperties] = useState([]);
+    
+    const {properties, propLoading} = useProperty()
+
+    const propertyList = isHome ? properties.slice(0,4) : properties;
+    
+
+  return (
+    <>
+    <div className="bg-black h-80 w-full relative mt-80 rounded-tl-4xl rounded-br-4xl max-md:hidden"></div>
+  <div className="h-120 md:mt-20 mt-60 absolute right-0 left-0 top-130 z-1">
+    <div className='text-center'><span className="font-bold md:text-2xl text-xl text-center">{isHome==true && "-----OUR POPULAR HOMES-----"}</span></div>
+
+      {propLoading?(<h1>Loading...</h1>):properties.length === 0 ? (
+        <h1 className='text-xl mt-5 text-red-500'>No Propertes Available</h1>
+      ):(
+        <div className="listing flex justify-center space-x-10">   
+        {propertyList.map((propertyData)=>(
+            <PropertyCard key={propertyData._id} property={propertyData}/>
+        ))}
+    </div>
+      )}
+     
+  </div>
+  </>
+  )
+}
+
+export default PropertyGrid
