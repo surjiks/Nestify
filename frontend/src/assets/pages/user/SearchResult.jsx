@@ -12,7 +12,7 @@ const SearchResult = () => {
     useEffect(()=>{
         const fetchSearchProperty = async() => {
             try {
-                const SearchParam = new URLSearchParams(location.search);
+                const SearchParam = new URLSearchParams(location.search); // URLSearchParams is a built-in JavaScript API that makes it easy to read query string values.
                 const area = SearchParam.get("area");
                 const type = SearchParam.get("type");
                 const price = SearchParam.get("price");

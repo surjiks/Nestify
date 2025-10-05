@@ -25,6 +25,7 @@ import RenewPlan from './assets/pages/user/RenewPlan'
 import { MyPropertyProvider } from './context/MyPropertyContext'
 import AboutUs from './assets/pages/user/AboutUs'
 import LandingPage from './assets/pages/user/LandingPage'
+import MembershipPayment from './assets/pages/user/MembershipPayment'
 
 
 export const router = createBrowserRouter([
@@ -88,6 +89,7 @@ export const router = createBrowserRouter([
       {path: "updateprofile", element:<UpdateProfile />},
       {path: "enquiry", element: <MyPropertyProvider><Enquiry /></MyPropertyProvider>},
       {path: "renewplan/:id", element: <RenewPlan />},
+      {path: "membership", element: <MembershipPayment />}
       ]
     }
     ]

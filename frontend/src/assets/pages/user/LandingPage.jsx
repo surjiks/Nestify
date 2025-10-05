@@ -5,24 +5,24 @@ import { Link } from 'react-router-dom'
 const LandingPage = () => {
   return (
     <>
-    <div className="bg-gradient-to-br from-[#8FD97C] via-[#1E5128] to-[#064E3B] h-screen w-full relative text-center">
+    <div className="bg-gradient-to-br from-[#8FD97C] h-screen w-full relative text-center">
          <div className="-space-y-20 absolute left-0 right-0 mt-20">
         <p className="mt-8 text-4xl">Transforming the future of home living</p>
-        <p className="head font-['MuseoModerno'] text-[220px] text-white/50 font-bold">NESTIFY</p>
+        <p className="head font-['MuseoModerno'] text-[220px] text-black font-bold">NESTIFY</p>
     </div>
     <div className="absolute bottom-0 ml-150">
         <img className="h-160" src={homeimg} alt=""/>
     </div>
     <div className="flex justify-between absolute mt-150 right-0 left-0">
         <div className="max-w-lg text-left ml-10 -mt-30">
-            <p className="text-2xl text-white mb-6">
+            <p className="text-2xl mb-6">
               Make your dream of homeownership a reality with guidance, support, and the right opportunities at your fingertips.
             </p>
             <Link to={'/login'} className="bg-[#095B15] p-3 text-white text-xl rounded-2xl hover:bg-[#07400F] transition">
               Get Started
             </Link>
           </div>
-        <div className="flex flex-col justify-center space-y-4 text-white text-right -mt-55 mr-30">
+        <div className="flex flex-col justify-center space-y-4 text-right -mt-55 mr-30">
             <div className="flex items-center space-x-4">
               <i className="fa-solid fa-house-user text-3xl"></i>
               <span className="outline text-xl rounded-full p-2 bg-white/10">Modern Homes</span>

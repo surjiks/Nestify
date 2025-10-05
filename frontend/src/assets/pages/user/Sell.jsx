@@ -32,8 +32,8 @@ const Sell = () => {
 
     if (!category) return toast.error("Please select a category");
     if (!selectedType) return toast.error("Please select property type");
-    if (!selectedBHK) return toast.error("Please select BHK");
-    if (!selectedBathroom) return toast.error("Please select number of bathrooms");
+    // if (!selectedBHK) return toast.error("Please select BHK");
+    // if (!selectedBathroom) return toast.error("Please select number of bathrooms");
     if (!projectarea) return toast.error("Please enter plot/built-up area");
     if (!title) return toast.error("Please enter ad title");
     if (!description) return toast.error("Please enter description");
@@ -87,7 +87,7 @@ const Sell = () => {
       navigate('/myproperty')
     } catch (error) {
         alert( error.message);
-        navigate('/homepage')
+        navigate('/myproperty')
     }
   };
 
@@ -296,22 +296,26 @@ const Sell = () => {
           <div className="border-b-1 mt-10 mb-6"></div>
 
           <span className="font-bold text-2xl">UPLOAD PHOTOS</span>
-          <div className="grid md:grid-cols-3 grid-cols-2 gap-5 md:w-[50%] mt-10 md:ml-20">
-            <label className="flex flex-col items-center justify-center border-2 border-dashed rounded-md h-[100px] w-[120px] hover:bg-gray-100">
-              <input
-                type="file"
-                accept="image/*"
-                onChange={(e) => {
-                  if (e.target.files && e.target.files[0]) {
-                    setPropertyImage(e.target.files[0]);
-                  }
-                }}
-                className="hidden"
-              />
-              <i className="fa-solid fa-camera text-2xl"></i>
-              <span className="text-md">Add Photo</span>
-            </label>
-          </div>
+
+      <div className="flex items-center gap-4 md:w-[50%] mt-10 md:ml-20">
+        <label className="flex flex-col items-center justify-center border-2 border-dashed rounded-md h-[100px] w-[120px] hover:bg-gray-100 cursor-pointer">
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => {
+                    if (e.target.files && e.target.files[0]) {
+                      setPropertyImage(e.target.files[0]);
+                    }
+                  }}
+            className="hidden"
+          />
+          <i className="fa-solid fa-camera text-2xl"></i>
+          <span className="text-md">Add Photo</span>
+        </label>
+        {propertyImage && (
+                  <span className="text-gray-700 font-medium">{propertyImage.name}</span>
+                )}
+      </div>
 
           <div className="border-b-1 mt-10 mb-6"></div>
 
@@ -342,6 +346,9 @@ const Sell = () => {
                 <i className="fa-solid fa-camera text-xl"></i>
                 <span className="text-sm pl-2">Add Photo</span>
               </label>
+              {aadharImage && (
+                  <span className="text-gray-700 font-medium text-sm ml-2">{aadharImage.name}</span>
+                )}
             </div>
           </div>
           <div className="text-xl pl-5 mt-8">
@@ -368,6 +375,9 @@ const Sell = () => {
                 <i className="fa-solid fa-camera text-xl"></i>
                 <span className="text-sm pl-2">Add Photo</span>
               </label>
+               {landtaxImage && (
+                  <span className="text-gray-700 font-medium text-sm ml-2">{landtaxImage.name}</span>
+                )}
             </div>
           </div>
 

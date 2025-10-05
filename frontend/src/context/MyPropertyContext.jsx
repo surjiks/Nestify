@@ -50,6 +50,8 @@ export const MyPropertyProvider = ({ children }) => {
         return "bg-[#b02a37]";
       case "Rejected":
         return "bg-[#dc3545]";
+        case "Sold":
+        return "bg-[#0d6efd]";
     }
   };
 
@@ -75,7 +77,7 @@ export const MyPropertyProvider = ({ children }) => {
         fetchEnquiry()
     },[profile?.userName])
   return (
-    <MyPropertyContext.Provider value={{myProperty, error, formatDate, getStatusBg , enquiry}}>{children}</MyPropertyContext.Provider>
+    <MyPropertyContext.Provider value={{myProperty, error, formatDate, getStatusBg , enquiry, setMyProperty}}>{children}</MyPropertyContext.Provider>
   )
 }
 

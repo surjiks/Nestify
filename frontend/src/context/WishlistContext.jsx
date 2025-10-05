@@ -1,4 +1,3 @@
-// context/WishlistContext.js
 import { createContext, useContext, useState, useEffect } from "react";
 import { useAuth } from "./AuthContext";
 
@@ -8,7 +7,6 @@ export const WishlistProvider = ({ children }) => {
   const [wishlist, setWishlist] = useState([]);
   const {profile} = useAuth()
 
-  // Fetch wishlist from API
   const fetchWishlist = async () => {
     try {
       const res = await fetch("/api/Wishlist");
@@ -30,7 +28,7 @@ export const WishlistProvider = ({ children }) => {
     }
   };
 
-  // Fetch wishlist once on mount
+
   useEffect(() => {
     if(!profile)return
     fetchWishlist();

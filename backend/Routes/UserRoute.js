@@ -15,19 +15,18 @@ user.post("/SellProperty",UserCheck,upload.fields([{name: "PropertyImage"},{name
     const UserName = req.name;
     const {Category,Type,BHK,Bathrooms,PArea,ProjectName,Title,Description,Price,Phone,AadharNo,TaxNo,Area,City,State,Pincode} = req.body
     const result = await AddProperty.findOne({userName: UserName,}).sort({ Date: -1 });
-    if(result){
+    const profile = await signup.findOne({userName: UserName})
+    if(!profile.membership && result){
         if(result.status == "Pending" || result.status == "Active"){
         res.status(404).json({msg:"You can add a new property only after the current listing has expired."})
         }
-         if (result.status === "Expired" && result.DueDate) {
+         if ((result.status === "Expired" || result.status === "Sold") && result.DueDate) {
           const expiryDate = new Date(result.DueDate); // expiry date (set by admin)
           const oneMonthAfterExpiry = new Date(expiryDate);
           oneMonthAfterExpiry.setMonth(oneMonthAfterExpiry.getMonth() + 1);
 
           if (new Date() < oneMonthAfterExpiry) {
-            return res.status(404).json({
-              msg: `You can add a new property only after ${oneMonthAfterExpiry.toDateString()}.`,
-            });
+            return res.status(404).json({msg: `You can add a new property only after ${oneMonthAfterExpiry.toDateString()}. or take Membership`,});
           }
         }
 
@@ -236,6 +235,28 @@ user.get('/myProperty',UserCheck,async(req,res)=>{
     }
 })
 
+//my property
+user.put('/markSold/:id', UserCheck, async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const result = await AddProperty.updateOne(
+      { _id: id },
+      { $set: { status: "Sold" } }
+    );
+
+    if (result.modifiedCount === 0) {
+      return res.status(404).json({ message: "Property not found or already sold" });
+    }
+
+    res.status(200).json({ message: "Property marked as Sold successfully" });
+  } catch (error) {
+    console.error("Error updating property:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+
 //get proeprty
 user.get('/getProperty/:id',UserCheck,async(req,res)=>{
     const {id} = req.params
@@ -418,7 +439,16 @@ user.get('/ViewProfile',UserCheck,async(req,res)=>{
         if(!result){
             res.status(404).json({msg:"User Not Found"})
         }
-        res.status(200).json(result)
+        if(result.membershipExpiry < new Date()){
+        await signup.updateOne(
+            { userName: userName },
+            { $set: { membership: false } }
+        );
+        }
+
+        const updatedUser = await signup.findOne({ userName: userName });
+        
+        res.status(200).json(updatedUser)
     } catch (error) {
         console.log(error); 
     }
@@ -449,4 +479,34 @@ user.put('/updateProfile',UserCheck,async(req,res)=>{
         res.status(500).json({ msg: "Something went wrong" });
     }
 })
+
+user.post('/membership', UserCheck, async (req, res) => {
+  try {
+    const UserName = req.name;
+    const user = await signup.findOne({ userName: UserName });
+
+    if (!user) {
+      return res.status(404).json({ msg: "User not found" });
+    }
+
+    if (user.membership === true && user.membershipExpiry > new Date()) {
+      return res.status(400).json({ msg: "You are already a member" });
+    }
+
+    const expiryDate = new Date();
+    expiryDate.setFullYear(expiryDate.getFullYear() + 1);
+
+    await signup.findOneAndUpdate(
+      { userName: UserName },
+      { $set: { membership: true, membershipExpiry: expiryDate } },
+      { new: true }
+    );
+
+    res.status(200).json({ msg: "Membership activated for 1 year" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ msg: "Server error" });
+  }
+});
+
 export default user

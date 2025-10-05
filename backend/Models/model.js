@@ -8,7 +8,12 @@ const details = new Schema({
     userRole:String,
     phone: String,
     phone2: String,
-    address: String
+    address: String,
+    membership: { 
+        type: Boolean, 
+        default: false
+    },
+    membershipExpiry: { type: Date }
 })
 const signup = model('Sign Up',details) 
 
@@ -42,6 +47,7 @@ const property = new Schema({
     Premium:{type:Boolean, default: false},
     Plan:{type:String, default: "Free"}
 })
+
 const AddProperty = model('Property',property)
 
 //Enquiry

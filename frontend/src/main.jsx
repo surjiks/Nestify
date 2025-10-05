@@ -8,7 +8,6 @@ import { router } from './App';
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { PropertyProvider } from './context/PropertyContext.jsx';
-import { LoginContext } from './context/LoginContext.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
