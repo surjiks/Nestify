@@ -1,31 +1,39 @@
-# 🌍 WonderLog : A Social-Inspired Goal-Tracking Platform
+# 🏡 Nestify : Online Real Estate Platform
 
-WonderLog is an interactive platform that blends goal tracking with social engagement, allowing users to stay inspired and motivated on their journey to achieving their dreams.
+Nestify is an online platform that allows users to buy and sell properties directly, without the need for intermediaries or brokers. It provides a smooth and secure way for users to list, browse, and enquire about properties, with admin moderation ensuring verified and trustworthy listings.
 
 ## 🌟 Features
 
-✅ Admin Inspirational Posts – The admin can share motivational posts that users can view and engage with.
+✅ User Registration & Login – Secure sign up and login system for all users.
 
-💬 Commenting System – Users can interact by commenting on inspirational posts.
+🏠 Buy Property – Browse and search properties with filters, and add favorites to your wishlist.
 
-🎯 Personal Goal Logging – Users can create, customize, and track their own goals with images and target dates.
+📨 Send Enquiry – Contact property owners directly if interested in a property.
 
-📊 Goal Progress Tracking – Keep an eye on personal milestones and achievements.
+📝 Sell Property – List your property for admin approval with detailed descriptions and images.
 
-🖼️ Image Uploads – Attach images to goals for better visualization and motivation.
+⏰ Property Expiry Management – Each approved listing stays active for 1 month, with options to extend or renew.
 
-🔖Bookmark Inspiration Post - User can save the inspirational post if they want to.
+💎 Membership System – Upgrade to post multiple properties at a time without waiting.
+
+⚙️ User Dashboard – Manage your properties, view enquiries, and update your profile.
+
+🛠️ Admin Dashboard – Approve/reject property listings, manage users, view properties, and handle feedback.
 
 
 ## 🚀 How It Works
 
-1️⃣ Admin posts an inspiration – Users can see and comment on it.
+1️⃣ Users sign up or log in to the platform.
 
-2️⃣ Users create their own goals – Categorize them, set target dates, and add images.
+2️⃣ Buy Property: Users can browse, filter, search, add to wishlist, and send enquiries to property owners.
 
-3️⃣ Track and stay inspired – View progress and engage with the community.
+3️⃣ Sell Property: Users can submit property listings for admin approval. Once approved, properties are active for 30 days.
 
-4️⃣ Bookmark inspirations  – Users can save admin's inspiration posts for later viewing.
+4️⃣ Expired properties can be renewed via small payment or users can wait a month to add new listings.
+
+5️⃣ Upgrade to membership to add unlimited properties.
+
+6️⃣ Admin manages property approvals, users, and feedback to maintain a trusted marketplace.
 
 
 ## 📌 Tech Stack
