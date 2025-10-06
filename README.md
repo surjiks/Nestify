@@ -69,9 +69,9 @@ Make sure you have the following installed on your system:
 
 Clone the repository:
 ```
-git clone git@github.com:anjitha-0123/DEB_Project-Wonderlog.git
+git clone git@github.com:surjiks/Nestify.git
 
-cd Wonderlog
+cd Nestify
 ```
 ## 🐳Running the Application with Docker
 
@@ -89,8 +89,4 @@ docker compose down
 ```
 docker ps
 ```
-
-## 🎥 Demo Vedio Link
-
-https://youtu.be/YmBvtykA8kY?si=AOLdccz40htxNocH
 
