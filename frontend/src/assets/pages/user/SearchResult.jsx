@@ -7,7 +7,6 @@ import { useLocation } from "react-router-dom";
 const SearchResult = () => {
     const [searchProperty,setSearchProperty] = useState([])
     const location = useLocation();
-    
 
     useEffect(()=>{
         const fetchSearchProperty = async() => {
