@@ -1,35 +1,88 @@
-# 🏡 Nestify — Real Estate Web Application
+# 🌍 WonderLog : A Social-Inspired Goal-Tracking Platform
 
-Nestify is a modern **real estate web application** built with the **MERN stack (MongoDB, Express.js, React.js, Node.js)**.  
-It allows users to buy, sell, and rent properties easily, with an intuitive dashboard, membership system, and responsive design.
+WonderLog is an interactive platform that blends goal tracking with social engagement, allowing users to stay inspired and motivated on their journey to achieving their dreams.
 
----
+## 🌟 Features
 
-## 🚀 Features
+✅ Admin Inspirational Posts – The admin can share motivational posts that users can view and engage with.
 
-- 🏘️ List, search, and filter properties by category and location  
-- 👤 User authentication and profile management  
-- 💰 Membership plans for property listing and premium features  
-- 🖼️ Image uploads with live preview  
-- 🧭 Dashboard for managing properties and inquiries  
-- 💳 Secure payment integration (dummy or real)  
-- ⚙️ Fully containerized with **Docker**
+💬 Commenting System – Users can interact by commenting on inspirational posts.
 
----
+🎯 Personal Goal Logging – Users can create, customize, and track their own goals with images and target dates.
 
-## 🧩 Tech Stack
+📊 Goal Progress Tracking – Keep an eye on personal milestones and achievements.
 
-**Frontend:** React.js, Tailwind CSS, Framer Motion  
-**Backend:** Node.js, Express.js  
-**Database:** MongoDB  
-**Containerization:** Docker & Docker Compose  
+🖼️ Image Uploads – Attach images to goals for better visualization and motivation.
 
----
+🔖Bookmark Inspiration Post - User can save the inspirational post if they want to.
 
-## 🐳 Run the Project with Docker (Recommended)
 
-### 🛠️ Prerequisites
-- [Docker](https://www.docker.com/) installed on your system
-- [Docker Compose](https://docs.docker.com/compose/) (usually included with Docker Desktop)
+## 🚀 How It Works
 
----
+1️⃣ Admin posts an inspiration – Users can see and comment on it.
+
+2️⃣ Users create their own goals – Categorize them, set target dates, and add images.
+
+3️⃣ Track and stay inspired – View progress and engage with the community.
+
+4️⃣ Bookmark inspirations  – Users can save admin's inspiration posts for later viewing.
+
+
+## 📌 Tech Stack
+
+![HTML](https://img.shields.io/badge/-HTML-E34F26?style=flat-square&logo=HTML5&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/-TailwindCSS-38B2AC?style=flat-square&logo=TailwindCSS&logoColor=white)
+![JavaScript](https://img.shields.io/badge/-JavaScript-F7DF1E?style=flat-square&logo=JavaScript&logoColor=black)
+![React](https://img.shields.io/badge/-React-61DAFB?style=flat-square&logo=React&logoColor=black)
+![Node.js](https://img.shields.io/badge/-Node.js-339933?style=flat-square&logo=Node.js&logoColor=white)
+![Express.js](https://img.shields.io/badge/-Express.js-000000?style=flat-square&logo=express&logoColor=white)
+![MongoDB](https://img.shields.io/badge/-MongoDB-47A248?style=flat-square&logo=MongoDB&logoColor=white)
+![Docker](https://img.shields.io/badge/-Docker-2496ED?style=flat-square&logo=Docker&logoColor=white)
+
+## 🛠 Other Tools
+
+🔐 JWT – Authentication & Authorization
+
+🖼️ Multer – Handling File Uploads
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+Make sure you have the following installed on your system:
+
+- Node.js
+
+- MongoDB
+
+- Docker
+
+### 🔧Installation
+
+Clone the repository:
+```
+git clone git@github.com:anjitha-0123/DEB_Project-Wonderlog.git
+
+cd Wonderlog
+```
+## 🐳Running the Application with Docker
+
+### Build & Run the Containers:
+```
+docker compose up --build
+```
+
+### Stopping the Containers:
+```
+docker compose down
+```
+
+### Check Running Containers:
+```
+docker ps
+```
+
+## 🎥 Demo Vedio Link
+
+https://youtu.be/YmBvtykA8kY?si=AOLdccz40htxNocH
+
