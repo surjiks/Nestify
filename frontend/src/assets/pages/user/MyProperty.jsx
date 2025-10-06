@@ -51,7 +51,7 @@ const MyProperty = () => {
                 <div className="outline grid w-full">
                   <div className="flex p-3">
                     <img
-                      className="h-[100px] pl-5"
+                      className="h-[100px] w-[120px] pl-5"
                       src={`data:image/jpeg;base64,${property.PropertyImage}`}
                       alt="property image"
                     />
